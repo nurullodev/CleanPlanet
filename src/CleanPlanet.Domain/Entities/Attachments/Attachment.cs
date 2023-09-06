@@ -1,4 +1,6 @@
-﻿namespace CleanPlanet.Domain.Entities.Attachments;
+﻿using CleanPlanet.Domain.Commons;
+
+namespace CleanPlanet.Domain.Entities.Attachments;
 
 public class Attachment : Auditable
 {
