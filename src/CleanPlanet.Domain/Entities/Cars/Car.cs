@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CleanPlanet.Domain.Entities.Cars;
 
-namespace CleanPlanet.Domain.Entities.Cars
+public class Car : Auditable
 {
-	internal class Car
-	{
-	}
+	public string Type { get; set; }
+	public string CarNumber { get; set; }
+
+	public long AttachmentId { get; set; }
+	public Attachment Attachment { get; set; }
+
+	public int QunatityTrashCan { get; set; }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CleanPlanet.Domain.Entities.Statistics;
 
-namespace CleanPlanet.Domain.Entities.Statistics
+public class Statistic : Auditable
 {
-	internal class Statistic
-	{
-	}
+	public long AddressId { get; set; }
+	public Address Address { get; set; }
 }
