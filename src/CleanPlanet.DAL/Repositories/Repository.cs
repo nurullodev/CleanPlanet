@@ -1,11 +1,12 @@
 ﻿using System.Linq.Expressions;
 using CleanPlanet.DAL.DbContexts;
 using CleanPlanet.DAL.IRepositories;
+using CleanPlanet.Domain.Commons;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.DAL.Repositories;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditable
 {
     private readonly AppDbContext dbContext;
     private readonly DbSet<TEntity> dbSet;
@@ -17,19 +18,19 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 
     public async Task AddAsync(TEntity entity)
     {
-        //entity.CreatedAt = DateTime.UtcNow;
+        entity.CreatedAt = DateTime.UtcNow;
         await dbSet.AddAsync(entity);
     }
 
     public void Update(TEntity entity)
     {
-        //entity.UpdatedAt = DateTime.UtcNow;
+        entity.UpdatedAt = DateTime.UtcNow;
         this.dbContext.Update(entity).State = EntityState.Modified;
     }
 
     public void Delete(TEntity entity)
     {
-        throw new NotImplementedException();
+        entity.IsDelete = true;
     }
 
     public void Destroy(TEntity entity)
@@ -45,7 +46,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
             foreach (var include in includes)
                 query = query.Include(include);
 
-        var entity = await query.FirstOrDefaultAsync(expression);
+        var entity = await query.Where(e => !e.IsDelete).FirstOrDefaultAsync(expression);
         return entity;
     }
 
@@ -59,7 +60,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
             foreach (var include in includes)
                 query = query.Include(include);
 
-        return query;
+        return query.Where(e => !e.IsDelete);
     }
 
     public async Task SaveAsync()
