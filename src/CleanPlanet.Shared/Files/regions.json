@@ -1,0 +1,72 @@
+[
+    {
+        "id": "1",
+        "name": "Qoraqalpog‘iston Respublikasi",
+        "country_id": "233"
+    },
+    {
+        "id": "2",
+        "name": "Andijon viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "3",
+        "name": "Buxoro viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "4",
+        "name": "Jizzax viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "5",
+        "name": "Qashqadaryo viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "6",
+        "name": "Navoiy viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "7",
+        "name": "Namangan viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "8",
+        "name": "Samarqand viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "9",
+        "name": "Surxandaryo viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "10",
+        "name": "Sirdaryo viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "11",
+        "name": "Toshkent viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "12",
+        "name": "Farg‘ona viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "13",
+        "name": "Xorazm viloyati",
+        "country_id": "233"
+    },
+    {
+        "id": "14",
+        "name": "Toshkent shahri",
+        "country_id": "233"
+    }
+]
