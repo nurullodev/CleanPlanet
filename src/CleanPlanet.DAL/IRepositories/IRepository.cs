@@ -1,8 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using CleanPlanet.Domain.Commons;
+using System.Linq.Expressions;
 
 namespace CleanPlanet.DAL.IRepositories;
 
-public interface IRepository<TEntity> where TEntity : class
+public interface IRepository<TEntity> where TEntity : Auditable
 {
     Task AddAsync(TEntity entity);
     void Update(TEntity entity);
