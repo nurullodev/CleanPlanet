@@ -1,4 +1,7 @@
-﻿namespace CleanPlanet.Domain.Entities.TrashCans;
+﻿using CleanPlanet.Domain.Commons;
+using CleanPlanet.Domain.Entities.Addresses;
+
+namespace CleanPlanet.Domain.Entities.TrashCans;
 
 public class TrashCan : Auditable
 {

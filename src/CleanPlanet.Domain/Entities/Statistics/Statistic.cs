@@ -1,4 +1,7 @@
-﻿namespace CleanPlanet.Domain.Entities.Statistics;
+﻿using CleanPlanet.Domain.Commons;
+using CleanPlanet.Domain.Entities.Addresses;
+
+namespace CleanPlanet.Domain.Entities.Statistics;
 
 public class Statistic : Auditable
 {

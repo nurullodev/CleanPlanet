@@ -1,4 +1,8 @@
-﻿namespace CleanPlanet.Domain.Entities.Drivers;
+﻿using CleanPlanet.Domain.Commons;
+using CleanPlanet.Domain.Entities.Cars;
+using CleanPlanet.Domain.Enums;
+
+namespace CleanPlanet.Domain.Entities.Drivers;
 
 public class Driver : Auditable
 {

@@ -1,4 +1,8 @@
-﻿namespace CleanPlanet.Domain.Entities.Users;
+﻿using CleanPlanet.Domain.Commons;
+using CleanPlanet.Domain.Entities.Addresses;
+using CleanPlanet.Domain.Enums;
+
+namespace CleanPlanet.Domain.Entities.Users;
 
 public class User : Auditable
 {

@@ -1,4 +1,7 @@
-﻿namespace CleanPlanet.Domain.Entities.Cars;
+﻿using System.Net.Mail;
+using CleanPlanet.Domain.Commons;
+
+namespace CleanPlanet.Domain.Entities.Cars;
 
 public class Car : Auditable
 {
