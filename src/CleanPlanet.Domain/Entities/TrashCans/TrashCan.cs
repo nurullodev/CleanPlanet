@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CleanPlanet.Domain.Entities.TrashCans;
 
-namespace CleanPlanet.Domain.Entities.TrashCans
+public class TrashCan : Auditable
 {
-	internal class TrashCan
-	{
-	}
+	public DateTime DueData { get; set; }
+
+	public long AddressId { get; set; }
+	public Address Address { get; set; }
+
+	public long AddressId { get; set; }
+	public Address Address { get; set; }
 }
