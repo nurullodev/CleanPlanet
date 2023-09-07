@@ -1,4 +1,5 @@
 ﻿using CleanPlanet.Domain.Enums;
+using CleanPlanet.Service.DTOs.Places.Addresses;
 using System.ComponentModel;
 
 namespace CleanPlanet.Service.DTOs.Users;
@@ -27,5 +28,5 @@ public class UserResultDto
     public UserRole Role { get; set; }
 
     [DisplayName("Address result")]
-    public long AddressId { get; set; }
+    public AddressResultDto Address { get; set; }
 }
