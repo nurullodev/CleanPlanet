@@ -10,6 +10,7 @@ public class User : Auditable
 	public string LastName { get; set; }
 	public string Phone { get; set; }
 	public string Password { get; set; }
+	public string? Email { get; set; }
 	public UserRole Role { get; set; }
 
 	public long AddressId { get; set; }
