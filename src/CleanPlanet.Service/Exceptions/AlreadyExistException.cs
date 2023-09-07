@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CleanPlanet.Service.Exceptions;
 
-namespace CleanPlanet.Service.Exceptions
+public class AlreadyExistException : Exception
 {
-    internal class AlreadyExistException
-    {
-    }
+    public AlreadyExistException(string message) : base(message)
+    { }
+
+    public AlreadyExistException(string message, Exception innerException) : base(message, innerException)
+    { }
+
+    public int StatusCode { get; set; } = 403;
 }
