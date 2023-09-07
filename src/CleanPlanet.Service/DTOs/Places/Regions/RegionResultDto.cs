@@ -1,10 +1,16 @@
-﻿using CleanPlanet.Service.DTOs.Places.Cities;
+﻿using System.ComponentModel;
+using CleanPlanet.Service.DTOs.Addresses.Countries;
 
 namespace CleanPlanet.Service.DTOs.Places.Regions;
 
 public class RegionResultDto
 {
-	public long Id { get; set; }
-	public string Name { get; set; }
-	public CityResultDto City { get; set; }
+    [DisplayName("Id")]
+    public long Id { get; set; }
+
+    [DisplayName("Name")]
+    public string Name { get; set; }
+
+    [DisplayName("Country result")]
+    public CountryResultDto Country { get; set; }
 }

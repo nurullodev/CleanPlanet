@@ -1,8 +1,15 @@
-﻿namespace CleanPlanet.Service.DTOs.Addresses.Countries;
+﻿using System.ComponentModel;
+
+namespace CleanPlanet.Service.DTOs.Addresses.Countries;
 
 public class CountryResultDto
 {
-	public long Id { get; set; }
-	public string Name { get; set; }
-	public string CountryCode { get; set; }
+    [DisplayName("Id")]
+    public long Id { get; set; }
+
+    [DisplayName("Name")]
+    public string Name { get; set; }
+
+    [DisplayName("Country code")]
+    public string CountryCode { get; set; }
 }
