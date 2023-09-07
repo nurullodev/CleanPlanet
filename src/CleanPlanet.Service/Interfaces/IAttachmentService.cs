@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Domain.Entities.Attachments;
 
-namespace CleanPlanet.Service.Interfaces
+namespace CleanPlanet.Service.Interfaces;
+
+public interface IAttachmentService
 {
-    internal class IAttachmentService
-    {
-    }
+    Task<Attachment> UploadAsync(AttachmentCreationDto dto);
+    Task<bool> RemoveAsync(Attachment attachment);
 }

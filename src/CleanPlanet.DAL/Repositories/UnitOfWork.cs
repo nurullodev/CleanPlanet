@@ -57,9 +57,4 @@ public class UnitOfWork : IUnitOfWork
     {
         GC.SuppressFinalize(true);
     }
-
-    public async Task SaveAsync()
-    {
-        await this.dbContext.SaveChangesAsync();
-    }
 }

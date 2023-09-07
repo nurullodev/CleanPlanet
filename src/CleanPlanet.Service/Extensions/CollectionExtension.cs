@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CleanPlanet.Domain.Configurations;
 
-namespace CleanPlanet.Service.Extensions
+namespace CleanPlanet.Service.Extensions;
+
+public static class CollectionExtension
 {
-    internal class CollectionExtension
+    public static IQueryable<T> ToPaginate<T>(this IQueryable<T> values, PaginationParams pagination)
     {
+        var source = values.Skip((pagination.PageIndex - 1) * pagination.PageSize).Take(pagination.PageSize);
+        return source;
     }
 }
