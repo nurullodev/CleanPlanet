@@ -17,5 +17,5 @@ public class CarUpdateDto
     public int QunatityTrashCan { get; set; }
 
     [DisplayName("Attachment id")]
-    public long AttachmentId { get; set; }
+    public long AttachId { get; set; }
 }

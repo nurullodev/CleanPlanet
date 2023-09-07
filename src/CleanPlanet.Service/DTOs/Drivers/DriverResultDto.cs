@@ -1,4 +1,5 @@
 ﻿using CleanPlanet.Domain.Enums;
+using CleanPlanet.Service.DTOs.Attachment;
 using CleanPlanet.Service.DTOs.Cars;
 using System.ComponentModel;
 
@@ -26,4 +27,7 @@ public class DriverResultDto
 
     [DisplayName("Car result")]
     public CarResultDto Car { get; set; }
+
+    [DisplayName("Attachment result")]
+    public AttachResultDto Attach { get; set; }
 }

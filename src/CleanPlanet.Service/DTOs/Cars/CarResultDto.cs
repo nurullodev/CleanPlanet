@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CleanPlanet.Service.DTOs.Attachment;
+using System.ComponentModel;
 
 namespace CleanPlanet.Service.DTOs.Cars;
 
@@ -16,6 +17,6 @@ public class CarResultDto
     [DisplayName("Qunatity of the trash can")]
     public int QunatityTrashCan { get; set; }
 
-    [DisplayName("Attachment id")]
-    public long AttachmentId { get; set; }
+    [DisplayName("Attachment result")]
+    public AttachResultDto Attach { get; set; }
 }

@@ -8,5 +8,5 @@ public interface ICityService
 {
     Task<bool> SaveInDBAsync();
     Task<CityResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<CityResultDto>> RetrieveAllAsync(PaginationParams @pagination);
+    Task<IEnumerable<CityResultDto>> RetrieveAllAsync(PaginationParams pagination);
 }

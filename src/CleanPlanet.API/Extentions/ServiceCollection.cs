@@ -14,5 +14,8 @@ public static class ServiceCollection
         services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ICityService, CityService>();
+        services.AddScoped<IRegionService, RegionService>();
+        services.AddScoped<ICountryService, CountryService>();
     }
 }

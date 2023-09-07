@@ -18,22 +18,11 @@ public class AppDbContext : DbContext
     public DbSet<TrashCan> TrashCans { get; set; }
     public DbSet<Car> Cars { get; set; }
     public DbSet<Driver> Drivers { get; set; }
-    public DbSet<Attach> Attachments { get; set; }
+    public DbSet<Attach> Attachs { get; set; }
     public DbSet<Statistic> Statistics { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Region> Regions { get; set; }
     public DbSet<Street> Streets { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Car>()
-            .HasOne(u => u.Attachment)
-            .WithMany()
-            .HasForeignKey(u => u.AttachmentId);
-
-        modelBuilder.Entity<Attach>()
-        .HasNoKey();
-    }
 }

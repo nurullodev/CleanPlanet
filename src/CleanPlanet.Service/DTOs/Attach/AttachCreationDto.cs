@@ -2,7 +2,7 @@
 
 namespace CleanPlanet.Service.DTOs.Attachment;
 
-public class AttachmentCreationDto
+public class AttachCreationDto
 {
     public IFormFile FormFile { get; set; }
 }

@@ -14,16 +14,16 @@ namespace CleanPlanet.Service.Services;
 public class CountryService : ICountryService
 {
 	private readonly IMapper mapper;
-	private readonly IRepository<Country> repository;
-	public CountryService(IMapper mapper, IRepository<Country> repository)
+	private readonly IUnitOfWork unitOfWork;
+    public CountryService(IMapper mapper, IUnitOfWork unitOfWork)
+    {
+        this.mapper = mapper;
+        this.unitOfWork = unitOfWork;
+    }
+    public async Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams pagination)
 	{
-		this.mapper = mapper;
-		this.repository = repository;
-	}
-	public async Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @pagination)
-	{
-		var countries = await this.repository.GetAll()
-			.ToPaginate(@pagination)
+		var countries = await this.unitOfWork.Countries.GetAll()
+			.ToPaginate(pagination)
 			.ToListAsync();
 		var result = this.mapper.Map<IEnumerable<CountryResultDto>>(countries);
 		return result;
@@ -31,7 +31,7 @@ public class CountryService : ICountryService
 
 	public async Task<CountryResultDto> RetrieveByIdAsync(long id)
 	{
-		var country = await this.repository.GetAsync(r => r.Id.Equals(id));
+		var country = await this.unitOfWork.Countries.GetAsync(r => r.Id.Equals(id));
 		if (country is null)
 			throw new NotFoundException("This country is not found");
 
@@ -41,19 +41,19 @@ public class CountryService : ICountryService
 
 	public async Task<bool> SaveInDBAsync()
 	{
-		var dbSource = this.repository.GetAll();
+		var dbSource = this.unitOfWork.Countries.GetAll();
 		if (dbSource.Any())
 			throw new AlreadyExistException("Countries are already exist");
 
-		string path = @"../../../../CleanPlanet/src/CleanPlanet.Shared/Files/counties.json";
+		string path = @"..//..//..//../CleanPlanet/src/CleanPlanet.Shared/Files/counties.json";
 		var source = File.ReadAllText(path);
 		var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
 
 		foreach (var country in countries)
 		{
 			var mappedCountry = this.mapper.Map<Country>(country);
-			await this.repository.AddAsync(mappedCountry);
-			await this.repository.SaveAsync();
+			await this.unitOfWork.Countries.AddAsync(mappedCountry);
+			await this.unitOfWork.Countries.SaveAsync();
 		}
 		return true;
 	}
