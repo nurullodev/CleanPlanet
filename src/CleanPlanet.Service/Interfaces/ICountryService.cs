@@ -1,4 +1,5 @@
 ﻿using CleanPlanet.Domain.Configurations;
+using CleanPlanet.Service.DTOs.Addresses.Countries;
 using CleanPlanet.Service.DTOs.Places.Regions;
 
 namespace CleanPlanet.Service.Interfaces;
@@ -6,6 +7,6 @@ namespace CleanPlanet.Service.Interfaces;
 public interface ICountryService
 {
     Task<bool> SaveInDBAsync();
-    Task<RegionResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams @params);
+    Task<CountryResultDto> RetrieveByIdAsync(long id);
+    Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @pagination);
 }
