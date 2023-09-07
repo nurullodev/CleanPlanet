@@ -1,7 +1,12 @@
-﻿namespace CleanPlanet.Service.DTOs.Places.Streets;
+﻿using System.ComponentModel;
 
-public class StreetCtreationDto
+namespace CleanPlanet.Service.DTOs.Places.Streets;
+
+public class StreetCreationDto
 {
+    [DisplayName("Name")]
     public string Name { get; set; }
+
+    [DisplayName("Region id")]
     public long RegionId { get; set; }
 }
