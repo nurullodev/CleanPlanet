@@ -2,6 +2,7 @@
 
 public class AddressCreationDto
 {
+
 	public int QuantityOfCar { get; set; }
 	public long CityId { get; set; }
 	public long CountryId { get; set; }
