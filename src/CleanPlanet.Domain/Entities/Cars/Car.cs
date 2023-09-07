@@ -9,6 +9,6 @@ public class Car : Auditable
 	public string Number { get; set; }
 	public int QunatityTrashCan { get; set; }
 
-	public long AttachmentId { get; set; }
+	public long? AttachmentId { get; set; }
 	public Attachment Attachment { get; set; }
 }

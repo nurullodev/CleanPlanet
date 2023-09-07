@@ -18,9 +18,6 @@ public class UserResultDto
     [DisplayName("Phone number")]
     public string Phone { get; set; }
 
-    [DisplayName("Password")]
-    public string Password { get; set; }
-
     [DisplayName("Email")]
     public string Email { get; set; }
 

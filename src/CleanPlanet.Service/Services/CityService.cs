@@ -15,8 +15,10 @@ public class CityService : ICityService
 {
 	private readonly IMapper mapper;
 	private readonly IRepository<City> repository;
-	public CityService(IMapper mapper, IRepository<City> repository)
+	private readonly IUnitOfWork unitOfWork;
+	public CityService(IMapper mapper, IRepository<City> repository,IUnitOfWork unitOfWork)
 	{
+		this.unitOfWork = unitOfWork;
 		this.mapper = mapper;
 		this.repository = repository;
 	}

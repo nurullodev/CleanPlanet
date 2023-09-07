@@ -21,9 +21,6 @@ public class DriverResultDto
     [DisplayName("Phone number")]
     public string Phone { get; set; }
 
-    [DisplayName("Password")]
-    public string Password { get; set; }
-
     [DisplayName("Role")]
     public UserRole Role { get; set; }
 

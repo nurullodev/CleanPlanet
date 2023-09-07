@@ -14,7 +14,7 @@ public interface IUnitOfWork : IDisposable
     IRepository<TrashCan> TrashCans { get; }
     IRepository<Car> Cars { get; }
     IRepository<Driver> Drivers { get; }
-    IRepository<Attachment> Attachments { get; }
+    IRepository<Attach> Attachments { get; }
     IRepository<Statistic> Statistics { get; }
     IRepository<Address> Addresses { get; }
     IRepository<City> Cities { get; }
