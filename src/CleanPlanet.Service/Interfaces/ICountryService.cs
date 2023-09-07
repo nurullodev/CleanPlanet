@@ -8,5 +8,5 @@ public interface ICountryService
 {
     Task<bool> SaveInDBAsync();
     Task<CountryResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams @pagination);
+    Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams pagination);
 }

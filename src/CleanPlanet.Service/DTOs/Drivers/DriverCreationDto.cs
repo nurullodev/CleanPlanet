@@ -1,4 +1,5 @@
-﻿using CleanPlanet.Domain.Enums;
+﻿using CleanPlanet.Domain.Entities.Attachments;
+using CleanPlanet.Domain.Enums;
 using System.ComponentModel;
 
 namespace CleanPlanet.Service.DTOs.Drivers;
@@ -25,4 +26,7 @@ public class DriverCreationDto
 
     [DisplayName("Car id")]
     public long CarId { get; set; }
+
+    [DisplayName("Attachment id")]
+    public long AttachId { get; set; }
 }

@@ -62,7 +62,7 @@ public class MappingProfile : Profile
         CreateMap<Street, StreetCreationDto>().ReverseMap();
 
         //Attachment
-        CreateMap<AttachmentResultDto, Attach>().ReverseMap();
+        CreateMap<AttachResultDto, Attach>().ReverseMap();
 
         //Statistic
         CreateMap<Statistic, StatisticResultDto>().ReverseMap();

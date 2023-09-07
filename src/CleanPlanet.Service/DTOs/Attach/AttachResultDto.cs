@@ -1,6 +1,6 @@
 ﻿namespace CleanPlanet.Service.DTOs.Attachment;
 
-public class AttachmentResultDto
+public class AttachResultDto
 {
     public long Id { get; set; }
     public string FileName { get; set; }

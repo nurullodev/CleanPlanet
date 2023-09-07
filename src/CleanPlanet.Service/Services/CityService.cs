@@ -14,17 +14,15 @@ namespace CleanPlanet.Service.Services;
 public class CityService : ICityService
 {
 	private readonly IMapper mapper;
-	private readonly IRepository<City> repository;
 	private readonly IUnitOfWork unitOfWork;
-	public CityService(IMapper mapper, IRepository<City> repository,IUnitOfWork unitOfWork)
+	public CityService(IMapper mapper, IUnitOfWork unitOfWork)
 	{
 		this.unitOfWork = unitOfWork;
 		this.mapper = mapper;
-		this.repository = repository;
 	}
 	public async Task<IEnumerable<CityResultDto>> RetrieveAllAsync(PaginationParams @pagination)
 	{
-		var countries = await this.repository.GetAll()
+		var countries = await this.unitOfWork.Countries.GetAll()
 			.ToPaginate(@pagination)
 			.ToListAsync();
 		var result = this.mapper.Map<IEnumerable<CityResultDto>>(countries);
@@ -33,7 +31,7 @@ public class CityService : ICityService
 
 	public async Task<CityResultDto> RetrieveByIdAsync(long id)
 	{
-		var country = await this.repository.GetAsync(r => r.Id.Equals(id));
+		var country = await this.unitOfWork.Cities.GetAsync(r => r.Id.Equals(id));
 		if (country is null)
 			throw new NotFoundException("This country is not found");
 
@@ -43,19 +41,19 @@ public class CityService : ICityService
 
 	public async Task<bool> SaveInDBAsync()
 	{
-		var dbSource = this.repository.GetAll();
+		var dbSource = this.unitOfWork.Countries.GetAll();
 		if (dbSource.Any())
 			throw new AlreadyExistException("Countries are already exist");
 
-		string path = @"../../../../CleanPlanet/src/CleanPlanet.Shared/Files/cities.json";
+		string path = @"..//..//..//../CleanPlanet/src/CleanPlanet.Shared/Files/cities.json";
 		var source = File.ReadAllText(path);
 		var countries = JsonConvert.DeserializeObject<IEnumerable<CityCreationDto>>(source);
 
 		foreach (var country in countries)
 		{
 			var mappedCountry = this.mapper.Map<City>(country);
-			await this.repository.AddAsync(mappedCountry);
-			await this.repository.SaveAsync();
+			await this.unitOfWork.Cities.AddAsync(mappedCountry);
+			await this.unitOfWork.Countries.SaveAsync();
 		}
 		return true;
 	}
