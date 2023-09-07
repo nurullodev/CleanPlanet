@@ -2,7 +2,7 @@
 
 namespace CleanPlanet.Domain.Entities.Attachments;
 
-public class Attachment : Auditable
+public class Attach : Auditable
 {
 	public string FilePath { get; set; }
 	public string FileName { get; set; }

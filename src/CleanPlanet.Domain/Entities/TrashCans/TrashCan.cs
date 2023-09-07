@@ -11,6 +11,6 @@ public class TrashCan : Auditable
 	public long AddressId { get; set; }
 	public Address Address { get; set; }
 
-	public long CarId { get; set; }
+	public long? CarId { get; set; }
 	public Car Car { get; set; }
 }

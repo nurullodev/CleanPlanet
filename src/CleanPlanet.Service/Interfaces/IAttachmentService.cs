@@ -5,6 +5,6 @@ namespace CleanPlanet.Service.Interfaces;
 
 public interface IAttachmentService
 {
-    Task<Attachment> UploadAsync(AttachmentCreationDto dto);
-    Task<bool> RemoveAsync(Attachment attachment);
+    Task<Attach> UploadAsync(AttachmentCreationDto dto);
+    Task<bool> RemoveAsync(Attach attachment);
 }

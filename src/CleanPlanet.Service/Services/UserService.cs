@@ -4,7 +4,10 @@ using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Users;
 using CleanPlanet.Service.DTOs.Users;
 using CleanPlanet.Service.Exceptions;
+using CleanPlanet.Service.Extensions;
+using CleanPlanet.Service.Helpers;
 using CleanPlanet.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.Service.Services;
 
@@ -22,42 +25,66 @@ public class UserService : IUserService
     {
         var existUser = await this.unitOfWork.Users.GetAsync(u => u.Phone.Equals(dto.Phone));
         if (existUser is not null)
-            throw new AlreadyExistException("This user is already exist");
+            throw new AlreadyExistException($"This user is already exists");
 
         var mappedUser = this.mapper.Map<User>(dto);
+        mappedUser.Password = PasswordHash.Encrypt(mappedUser.Password);
         await this.unitOfWork.Users.AddAsync(mappedUser);
         await this.unitOfWork.Users.SaveAsync();
 
         return this.mapper.Map<UserResultDto>(mappedUser);
     }
 
-    public ValueTask<UserResultDto> ModefyAsync(UserUpdateDto dto)
+    public async ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var existUser = await this.unitOfWork.Users.GetAsync(u => u.Id.Equals(dto.Id));
+        if (existUser is null)
+            throw new NotFoundException($"This user is not found");
+
+        this.mapper.Map(dto, existUser);
+        existUser.Password = PasswordHash.Encrypt(dto.Password);
+        this.unitOfWork.Users.Update(existUser);
+        await this.unitOfWork.Users.SaveAsync();
+
+        return this.mapper.Map<UserResultDto>(existUser);
     }
 
-    public ValueTask<bool> RemoveAsync(long id)
+    public async ValueTask<bool> RemoveAsync(long id)
     {
-        throw new NotImplementedException();
+        var existUser = await this.unitOfWork.Users.GetAsync(u => u.Id.Equals(id));
+        if (existUser is null)
+            throw new NotFoundException($"This user is not found");
+
+        this.unitOfWork.Users.Delete(existUser);
+        await this.unitOfWork.Users.SaveAsync();
+        return true;
     }
 
-    public ValueTask<IEnumerable<UserResultDto>> RetrieveAsync(PaginationParams pagination)
+    public async ValueTask<UserResultDto> RetrieveByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        User existUser = await this.unitOfWork.Users.GetAsync(u => u.Id.Equals(id));
+        if (existUser is null)
+            throw new NotFoundException($"This user is not found");
+
+        return this.mapper.Map<UserResultDto>(existUser);
     }
 
-    public ValueTask<UserResultDto> RetrieveByEmailAndPasswordAsync(string email, string password)
+    public async ValueTask<UserResultDto> RetrieveByEmailAndPasswordAsync(string email, string password)
     {
-        throw new NotImplementedException();
+        User existUser = await this.unitOfWork.Users.GetAsync(u => u.Email.Equals(email));
+        if (existUser is null)
+            throw new NotFoundException($"This user is not found");
+        var checkedPassword = PasswordHash.Verify(existUser.Password, password);
+        if (!checkedPassword)
+            throw new InvalidPasswordException("Invalid password");
+
+        return this.mapper.Map<UserResultDto>(existUser);
     }
 
-    public ValueTask<UserResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAsync(PaginationParams pagination)
     {
-        throw new NotImplementedException();
-    }
-
-    public ValueTask<UserResultDto> RetrieveByPasswordAsync(string password)
-    {
-        throw new NotImplementedException();
+        var users = await this.unitOfWork.Users.GetAll(includes: new[] { "Criminal", "CrimeCategory" }).ToPaginate(pagination).ToListAsync();
+        var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
+        return result;
     }
 }

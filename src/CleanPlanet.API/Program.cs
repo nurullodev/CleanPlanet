@@ -1,3 +1,4 @@
+using CleanPlanet.API.Extentions;
 using CleanPlanet.DAL.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,10 @@ public class Program
         //Context
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        // Add Custom services
+        builder.Services.AddServices();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
