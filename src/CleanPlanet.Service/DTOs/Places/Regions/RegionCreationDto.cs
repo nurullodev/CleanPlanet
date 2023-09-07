@@ -1,10 +1,16 @@
-﻿using CleanPlanet.Domain.Entities.Addresses;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace CleanPlanet.Service.DTOs.Places.Regions;
 
 public class RegionCreationDto
 {
-	public string Name { get; set; }
-	public long CityId { get; set; }
-	public City City { get; set; }
+    [JsonProperty("id")]
+    public long Id { get; set; }
+
+    [JsonProperty("name")]
+    public string Name { get; set; }
+
+    [DisplayName("country_id")]
+    public long CountryId { get; set; }
 }

@@ -2,11 +2,8 @@
 
 namespace CleanPlanet.Service.DTOs.Places.Streets;
 
-public class StreetUpdateDto
+public class StreetCreationDto
 {
-    [DisplayName("Id")]
-    public long Id { get; set; }
-
     [DisplayName("Name")]
     public string Name { get; set; }
 

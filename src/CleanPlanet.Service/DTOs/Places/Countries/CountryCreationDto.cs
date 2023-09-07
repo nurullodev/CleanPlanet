@@ -1,7 +1,15 @@
-﻿namespace CleanPlanet.Service.DTOs.Addresses.Countries;
+﻿using Newtonsoft.Json;
+
+namespace CleanPlanet.Service.DTOs.Addresses.Countries;
 
 public class CountryCreationDto
 {
-	public string Name { get; set; }
-	public string CountryCode { get; set; }
+    [JsonProperty("id")]
+    public long Id { get; set; }
+
+    [JsonProperty("name")]
+    public string Name { get; set; }
+
+    [JsonProperty("code")]
+    public string CountryCode { get; set; }
 }

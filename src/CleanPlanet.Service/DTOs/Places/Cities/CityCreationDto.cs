@@ -1,7 +1,15 @@
-﻿namespace CleanPlanet.Service.DTOs.Places.Cities;
+﻿using Newtonsoft.Json;
+
+namespace CleanPlanet.Service.DTOs.Places.Cities;
 
 public class CityCreationDto
 {
-	public string Name { get; set; }
-	public long CountryId { get; set; }
+    [JsonProperty("id")]
+    public long Id { get; set; }
+
+    [JsonProperty("name")]
+    public string Name { get; set; }
+
+    [JsonProperty("region_id")]
+    public long RegionId { get; set; }
 }

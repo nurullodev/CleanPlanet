@@ -6,6 +6,6 @@ public class Region : Auditable
 {
 	public string Name { get; set; }
 
-	public long CityId { get; set; }
-	public City City { get; set; }
+	public long CountryId { get; set; }
+	public Country Country { get; set; }
 }
