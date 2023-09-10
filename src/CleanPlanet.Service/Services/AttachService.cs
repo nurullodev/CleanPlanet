@@ -1,6 +1,7 @@
 ﻿using CleanPlanet.Service.Helpers;
 using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Service.Extensions;
+using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Service.DTOs.Attachment;
 using CleanPlanet.Domain.Entities.Attachments;
 
