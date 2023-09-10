@@ -9,5 +9,5 @@ public interface ITrashCanService
     ValueTask<TrashCanResultDto> ModifyAsync(TrashCanUpdateDto dto);
     ValueTask<bool> DestroyAsync(long id);
     ValueTask<TrashCanResultDto> RetrieveByIdAsync(long id);
-    ValueTask<IEnumerable<TrashCanResultDto>> RetrieveAsync(PaginationParams pagination);
+    ValueTask<IEnumerable<TrashCanResultDto>> RetrieveAsync();
 }

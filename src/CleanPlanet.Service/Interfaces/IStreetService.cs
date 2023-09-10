@@ -9,5 +9,5 @@ public interface IStreetService
     ValueTask<StreetResultDto> ModifyAsync(StreetUpdateDto dto);
     ValueTask<bool> DestroyAsync(long id);
     ValueTask<StreetResultDto> RetrieveByIdAsync(long id);
-    ValueTask<IEnumerable<StreetResultDto>> RetrieveAsync(PaginationParams pagination);
+    ValueTask<IEnumerable<StreetResultDto>> RetrieveAsync();
 }

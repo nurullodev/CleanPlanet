@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using CleanPlanet.DAL.IRepositories;
-using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Service.DTOs.Places.Streets;
+using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Interfaces;
+using CleanPlanet.Domain.Entities.Addresses;
+using CleanPlanet.Service.DTOs.Places.Streets;
 
 namespace CleanPlanet.Service.Services;
 
@@ -16,28 +18,68 @@ public class StreetService : IStreetService
         this.mapper = mapper;
     }
 
-    public ValueTask<StreetResultDto> CreateAsync(StreetCreationDto dto)
+    public async ValueTask<StreetResultDto> CreateAsync(StreetCreationDto dto)
     {
-        throw new NotImplementedException();
+        var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Name.Equals(dto.Name));
+        if (existStreet is not null)
+            throw new AlreadyExistException("This street name is already exist");
+
+        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId))
+                        ?? throw new NotFoundException("This region Id is not found");
+        var mappedStreet = this.mapper.Map<Street>(dto);
+        mappedStreet.RegionId = dto.RegionId;
+        mappedStreet.Region = region;
+        await this.unitOfWork.Streets.AddAsync(mappedStreet);
+        await this.unitOfWork.Streets.SaveAsync();
+
+        return this.mapper.Map<StreetResultDto>(mappedStreet);
     }
 
-    public ValueTask<bool> DestroyAsync(long id)
+    public async ValueTask<StreetResultDto> ModifyAsync(StreetUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(dto.Id));
+        if (existStreet is null)
+            throw new NotFoundException("This street Id is not found");
+
+        if (existStreet.Name.Equals(dto.Name))
+            throw new AlreadyExistException("This street name is already exist");
+
+        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId))
+                        ?? throw new NotFoundException("This region Id is not found");
+
+        var mappedStreet = this.mapper.Map(dto, existStreet);
+        mappedStreet.RegionId = dto.RegionId;
+        mappedStreet.Region = region;
+        this.unitOfWork.Streets.Update(mappedStreet);
+        await this.unitOfWork.Streets.SaveAsync();
+
+        return this.mapper.Map<StreetResultDto>(mappedStreet);
     }
 
-    public ValueTask<StreetResultDto> ModifyAsync(StreetUpdateDto dto)
+    public async ValueTask<bool> DestroyAsync(long id)
     {
-        throw new NotImplementedException();
+        var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(id));
+        if (existStreet is null)
+            throw new NotFoundException("This street Id is not found");
+
+        this.unitOfWork.Streets.Destroy(existStreet);
+        await this.unitOfWork.Streets.SaveAsync();
+        return true;
     }
 
-    public ValueTask<IEnumerable<StreetResultDto>> RetrieveAsync(PaginationParams pagination)
+    public async ValueTask<StreetResultDto> RetrieveByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(id), includes: new[] { "Region" });
+        if (existStreet is null)
+            throw new NotFoundException("This street Id is not found");
+
+        return this.mapper.Map<StreetResultDto>(existStreet);
     }
 
-    public ValueTask<StreetResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<IEnumerable<StreetResultDto>> RetrieveAsync()
     {
-        throw new NotImplementedException();
+        var streets = await this.unitOfWork.Streets.GetAll(includes: new[] { "Region" }).ToListAsync();
+        var result = this.mapper.Map<IEnumerable<StreetResultDto>>(streets);
+        return result;
     }
 }
