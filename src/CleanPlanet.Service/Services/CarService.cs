@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using CleanPlanet.DAL.IRepositories;
-using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Domain.Entities.Cars;
-using CleanPlanet.Service.DTOs.Attachment;
+using Microsoft.EntityFrameworkCore;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Extensions;
 using CleanPlanet.Service.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using CleanPlanet.Domain.Entities.Cars;
+using CleanPlanet.Domain.Configurations;
+using CleanPlanet.Service.DTOs.Attachment;
 
 namespace CleanPlanet.Service.Services;
 
@@ -73,7 +73,7 @@ public class CarService : ICarService
 
     public async ValueTask<CarResultDto> RetrieveByIdAsync(long id)
     {
-        var existCar = await this.unitOfWork.Cars.GetAsync(c => c.Id.Equals(id) , includes: new[] { "Attachment" });
+        var existCar = await this.unitOfWork.Cars.GetAsync(c => c.Id.Equals(id) , includes: new[] { "Attach" });
         if (existCar is null)
             throw new NotFoundException("This car number is not found");
 
@@ -82,17 +82,17 @@ public class CarService : ICarService
 
     public async ValueTask<IEnumerable<CarResultDto>> RetrieveAsync(PaginationParams pagination)
     {
-        var products = await this.unitOfWork.Cars.GetAll(includes: new[] {"Attachment"})
-                        .ToPaginate(pagination)
-                        .ToListAsync();
+        var cars = await this.unitOfWork.Cars.GetAll(includes: new[] {"Attach"})
+                        .ToPaginate(pagination).ToListAsync();
 
-        return this.mapper.Map<IEnumerable<CarResultDto>>(products);
+        return this.mapper.Map<IEnumerable<CarResultDto>>(cars);
     }
 
     public async ValueTask<CarResultDto> UploadImageAsync(long carId, AttachCreationDto dto)
     {
-        var car = await this.unitOfWork.Cars.GetAsync(p => p.Id.Equals(carId))
-            ?? throw new NotFoundException("This product is not found");
+        var car = await this.unitOfWork.Cars.GetAsync(p => p.Id.Equals(carId));
+        if (car is null)
+            throw new NotFoundException("This car Id is not found");
 
         var createdAttachment = await this.attachService.UploadAsync(dto);
         car.AttachId = createdAttachment.Id;
@@ -106,9 +106,9 @@ public class CarService : ICarService
 
     public async ValueTask<CarResultDto> ModifyImageAsync(long carId, AttachCreationDto dto)
     {
-        var car = await this.unitOfWork.Cars.GetAsync(p => p.Id.Equals(carId),
-            includes: new[] { "Category", "Attachment" })
-            ?? throw new NotFoundException("This product is not found");
+        var car = await this.unitOfWork.Cars.GetAsync(p => p.Id.Equals(carId), includes: new[] { "Attach" });
+        if (car is null)
+            throw new NotFoundException("This car Id is not found");
 
         await this.attachService.RemoveAsync(car.Attach);
         var createdAttachment = await this.attachService.UploadAsync(dto);

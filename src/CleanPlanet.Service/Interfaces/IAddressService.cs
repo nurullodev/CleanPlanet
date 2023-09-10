@@ -6,7 +6,7 @@ namespace CleanPlanet.Service.Interfaces;
 public interface IAddressService
 {
     ValueTask<AddressResultDto> CreateAsync(AddressCreationDto dto);
-    ValueTask<AddressResultDto> ModefyAsync(AddressUpdateDto dto);
+    ValueTask<AddressResultDto> ModifyAsync(AddressUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<AddressResultDto> RetrieveByIdAsync(long id);
     ValueTask<IEnumerable<AddressResultDto>> RetrieveAsync(PaginationParams pagination);

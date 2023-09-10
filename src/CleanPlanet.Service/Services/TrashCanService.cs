@@ -26,7 +26,7 @@ public class TrashCanService : ITrashCanService
         throw new NotImplementedException();
     }
 
-    public ValueTask<TrashCanResultDto> ModefyAsync(TrashCanUpdateDto dto)
+    public ValueTask<TrashCanResultDto> ModifyAsync(TrashCanUpdateDto dto)
     {
         throw new NotImplementedException();
     }

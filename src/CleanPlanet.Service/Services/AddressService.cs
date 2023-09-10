@@ -21,7 +21,7 @@ public class AddressService : IAddressService
         throw new NotImplementedException();
     }
 
-    public ValueTask<AddressResultDto> ModefyAsync(AddressUpdateDto dto)
+    public ValueTask<AddressResultDto> ModifyAsync(AddressUpdateDto dto)
     {
         throw new NotImplementedException();
     }
