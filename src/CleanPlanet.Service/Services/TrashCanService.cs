@@ -1,43 +1,75 @@
 ﻿using AutoMapper;
 using CleanPlanet.DAL.IRepositories;
-using CleanPlanet.Domain.Configurations;
+using CleanPlanet.Domain.Entities.TrashCans;
 using CleanPlanet.Service.DTOs.TrashCan;
+using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.Service.Services;
 
 public class TrashCanService : ITrashCanService
 {
-    private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
+    private readonly IUnitOfWork unitOfWork;
     public TrashCanService(IUnitOfWork unitOfWork, IMapper mapper)
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
     }
 
-    public ValueTask<TrashCanResultDto> CreateAsync(TrashCanCreationDto dto)
+    public async ValueTask<TrashCanResultDto> CreateAsync(TrashCanCreationDto dto)
     {
-        throw new NotImplementedException();
+        var existCar = await this.unitOfWork.Cars.GetAsync(t => t.Id.Equals(dto.CarId))
+                            ?? throw new NotFoundException("This car Id is not found");
+        
+        var mappedTrashCan = this.mapper.Map<TrashCan>(dto);
+        mappedTrashCan.CarId = existCar.Id;
+        mappedTrashCan.Car = existCar;
+        await this.unitOfWork.TrashCans.AddAsync(mappedTrashCan);
+        await this.unitOfWork.TrashCans.SaveAsync();
+
+        return this.mapper.Map<TrashCanResultDto>(mappedTrashCan);
     }
 
-    public ValueTask<bool> DestroyAsync(long id)
+    public async ValueTask<TrashCanResultDto> ModifyAsync(TrashCanUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var existTrashCan = await this.unitOfWork.TrashCans.GetAsync(t => t.Id.Equals(dto.Id))
+                            ?? throw new NotFoundException("This trash can Id is not found");
+
+        var existCar = await this.unitOfWork.Cars.GetAsync(t => t.Id.Equals(dto.CarId))
+                           ?? throw new NotFoundException("This car Id is not found");
+
+        var mappedTrashCan = this.mapper.Map(dto,existTrashCan);
+        mappedTrashCan.CarId = existCar.Id;
+        mappedTrashCan.Car = existCar;
+        this.unitOfWork.TrashCans.Update(mappedTrashCan);
+        await this.unitOfWork.TrashCans.SaveAsync();
+
+        return this.mapper.Map<TrashCanResultDto>(mappedTrashCan);
     }
 
-    public ValueTask<TrashCanResultDto> ModifyAsync(TrashCanUpdateDto dto)
+    public async ValueTask<bool> DestroyAsync(long id)
     {
-        throw new NotImplementedException();
+        var existTrashCan = await this.unitOfWork.TrashCans.GetAsync(t => t.Id.Equals(id))
+                            ?? throw new NotFoundException("This trash can Id is not found");
+
+        this.unitOfWork.TrashCans.Destroy(existTrashCan);
+        await this.unitOfWork.TrashCans.SaveAsync();
+        return true;
     }
 
-    public ValueTask<IEnumerable<TrashCanResultDto>> RetrieveAsync(PaginationParams pagination)
+    public async ValueTask<TrashCanResultDto> RetrieveByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var existTrashCan = await this.unitOfWork.TrashCans.GetAsync(t => t.Id.Equals(id), includes: new[] {"Car"})
+                            ?? throw new NotFoundException("This trash can Id is not found");
+
+        return this.mapper.Map<TrashCanResultDto>(existTrashCan);
     }
 
-    public ValueTask<TrashCanResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<IEnumerable<TrashCanResultDto>> RetrieveAsync()
     {
-        throw new NotImplementedException();
+        var trashcans = await this.unitOfWork.TrashCans.GetAll(includes: new[] { "Car" }).ToListAsync();
+        return this.mapper.Map<IEnumerable<TrashCanResultDto>>(trashcans);
     }
 }
