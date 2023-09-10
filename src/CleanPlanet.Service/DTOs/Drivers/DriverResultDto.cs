@@ -1,7 +1,7 @@
-﻿using CleanPlanet.Domain.Enums;
-using CleanPlanet.Service.DTOs.Attachment;
+﻿using System.ComponentModel;
+using CleanPlanet.Domain.Enums;
 using CleanPlanet.Service.DTOs.Cars;
-using System.ComponentModel;
+using CleanPlanet.Service.DTOs.Attachment;
 
 namespace CleanPlanet.Service.DTOs.Drivers;
 

@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using CleanPlanet.Service.Helpers;
+using Microsoft.EntityFrameworkCore;
 using CleanPlanet.DAL.IRepositories;
-using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Domain.Entities.Users;
 using CleanPlanet.Service.DTOs.Users;
+using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Extensions;
-using CleanPlanet.Service.Helpers;
-using CleanPlanet.Service.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using CleanPlanet.Domain.Configurations;
+using CleanPlanet.Domain.Entities.Users;
 
 namespace CleanPlanet.Service.Services;
 
@@ -83,7 +83,7 @@ public class UserService : IUserService
 
     public async ValueTask<IEnumerable<UserResultDto>> RetrieveAsync(PaginationParams pagination)
     {
-        var users = await this.unitOfWork.Users.GetAll(includes: new[] { "Criminal", "CrimeCategory" }).ToPaginate(pagination).ToListAsync();
+        var users = await this.unitOfWork.Users.GetAll().ToPaginate(pagination).ToListAsync();
         var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
         return result;
     }

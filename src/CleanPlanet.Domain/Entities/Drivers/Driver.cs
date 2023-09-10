@@ -1,7 +1,7 @@
-﻿using CleanPlanet.Domain.Commons;
-using CleanPlanet.Domain.Entities.Attachments;
+﻿using CleanPlanet.Domain.Enums;
+using CleanPlanet.Domain.Commons;
 using CleanPlanet.Domain.Entities.Cars;
-using CleanPlanet.Domain.Enums;
+using CleanPlanet.Domain.Entities.Attachments;
 
 namespace CleanPlanet.Domain.Entities.Drivers;
 

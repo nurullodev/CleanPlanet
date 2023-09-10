@@ -26,7 +26,7 @@ public class StreetService : IStreetService
         throw new NotImplementedException();
     }
 
-    public ValueTask<StreetResultDto> ModefyAsync(StreetUpdateDto dto)
+    public ValueTask<StreetResultDto> ModifyAsync(StreetUpdateDto dto)
     {
         throw new NotImplementedException();
     }
