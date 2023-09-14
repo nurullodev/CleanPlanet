@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-using CleanPlanet.Service.DTOs.Places.Cities;
 using CleanPlanet.Service.DTOs.Places.Regions;
 using CleanPlanet.Service.DTOs.Places.Streets;
 using CleanPlanet.Service.DTOs.Addresses.Countries;
+using CleanPlanet.Service.DTOs.Places.Districts;
 
 namespace CleanPlanet.Service.DTOs.Places.Addresses;
 
@@ -15,7 +15,7 @@ public class AddressResultDto
     public int QuantityOfCar { get; set; }
 
 	[DisplayName("City result")]
-	public CityResultDto City { get; set; }
+	public DistrictResultDto City { get; set; }
 
 	[DisplayName("Country result")]
 	public CountryResultDto Country { get; set; }

@@ -21,7 +21,7 @@ public class AppDbContext : DbContext
     public DbSet<Attach> Attachs { get; set; }
     public DbSet<Statistic> Statistics { get; set; }
     public DbSet<Address> Addresses { get; set; }
-    public DbSet<City> Cities { get; set; }
+    public DbSet<District> Districts { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Region> Regions { get; set; }
     public DbSet<Street> Streets { get; set; }

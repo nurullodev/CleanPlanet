@@ -2,7 +2,7 @@
 
 namespace CleanPlanet.Domain.Entities.Addresses;
 
-public class City : Auditable
+public class District : Auditable
 {
 	public string Name { get; set; }
 

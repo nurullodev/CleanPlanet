@@ -15,14 +15,13 @@ public class RegionService : IRegionService
 {
     private readonly IMapper mapper;
     private readonly IUnitOfWork unitOfWork;
-
     public RegionService(IUnitOfWork unitOfWork, IMapper mapper)
     {
-        this.unitOfWork = unitOfWork;
         this.mapper = mapper;
+        this.unitOfWork = unitOfWork;
     }
 
-    public async Task<bool> SaveInDBAsync()
+    public async ValueTask<bool> SaveInDBAsync()
     {
         var dbSource = this.unitOfWork.Regions.GetAll();
         if (dbSource.Any())
@@ -42,7 +41,7 @@ public class RegionService : IRegionService
         return true;
     }
 
-    public async Task<RegionResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<RegionResultDto> RetrieveByIdAsync(long id)
     {
         var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(id), includes: new[] { "Country" });
         if (region is null)
@@ -52,10 +51,10 @@ public class RegionService : IRegionService
         return mappedRegion;
     }
 
-    public async Task<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams pagination)
+    public async ValueTask<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var regions = await this.unitOfWork.Regions.GetAll(includes: new[] { "Country" })
-            .ToPaginate(pagination)
+            .ToPaginate(@params)
             .ToListAsync();
         var result = this.mapper.Map<IEnumerable<RegionResultDto>>(regions);
         return result;

@@ -28,10 +28,11 @@ public class DriverService : IDriverService
     {
         var driver = await this.unitOfWork.Drivers.GetAsync(d => d.Phone.Equals(dto.Phone));
         if (driver is not null)
-            throw new AlreadyExistException("This driver phone is already exist");
+            throw new AlreadyExistException("This driver is already exist");
 
         dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
         dto.Password = PasswordHash.Encrypt(dto.Password);
+
         var mappedDriver = this.mapper.Map<Driver>(dto);
         await this.unitOfWork.Drivers.AddAsync(mappedDriver);
         await this.unitOfWork.Drivers.SaveAsync();
@@ -43,10 +44,10 @@ public class DriverService : IDriverService
     {
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(dto.Id));
         if (existDriver is null)
-            throw new NotFoundException("This driver Id is not found");
+            throw new NotFoundException("This driver is not found");
 
         if (existDriver.Phone.Equals(dto.Phone))
-            throw new AlreadyExistException("This driver phone is already exist");
+            throw new AlreadyExistException("This driver is already exist");
 
         dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
         dto.Password = PasswordHash.Encrypt(dto.Password);

@@ -11,7 +11,7 @@ using CleanPlanet.Service.DTOs.Attachment;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.DTOs.Drivers;
 using CleanPlanet.Service.DTOs.Places.Addresses;
-using CleanPlanet.Service.DTOs.Places.Cities;
+using CleanPlanet.Service.DTOs.Places.Districts;
 using CleanPlanet.Service.DTOs.Places.Regions;
 using CleanPlanet.Service.DTOs.Places.Streets;
 using CleanPlanet.Service.DTOs.Statistic;
@@ -45,8 +45,8 @@ public class MappingProfile : Profile
         CreateMap<Address, AddressCreationDto>().ReverseMap();
 
         //City
-        CreateMap<City, CityResultDto>().ReverseMap();
-        CreateMap<City, CityCreationDto>().ReverseMap();
+        CreateMap<District, DistrictResultDto>().ReverseMap();
+        CreateMap<District, DistrictCreationDto>().ReverseMap();
 
         //Country
         CreateMap<Country, CountryResultDto>().ReverseMap();

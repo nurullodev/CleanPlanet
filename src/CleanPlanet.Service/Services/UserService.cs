@@ -41,6 +41,10 @@ public class UserService : IUserService
         if (existUser is null)
             throw new NotFoundException($"This user is not found");
 
+        var checkUser = await this.unitOfWork.Users.GetAsync(u => u.Phone.Equals(dto.Phone));
+        if (checkUser is not null)
+            throw new AlreadyExistException($"This user is already exists");
+
         this.mapper.Map(dto, existUser);
         existUser.Password = PasswordHash.Encrypt(dto.Password);
         this.unitOfWork.Users.Update(existUser);
@@ -74,6 +78,7 @@ public class UserService : IUserService
         User existUser = await this.unitOfWork.Users.GetAsync(u => u.Email.Equals(email));
         if (existUser is null)
             throw new NotFoundException($"This user is not found");
+
         var checkedPassword = PasswordHash.Verify(existUser.Password, password);
         if (!checkedPassword)
             throw new InvalidPasswordException("Invalid password");

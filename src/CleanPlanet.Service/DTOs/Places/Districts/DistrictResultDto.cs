@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using CleanPlanet.Service.DTOs.Places.Regions;
 
-namespace CleanPlanet.Service.DTOs.Places.Cities;
+namespace CleanPlanet.Service.DTOs.Places.Districts;
 
-public class CityResultDto
+public class DistrictResultDto
 {
     [DisplayName("Id")]
     public long Id { get; set; }

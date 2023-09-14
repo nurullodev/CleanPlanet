@@ -18,8 +18,8 @@ public class CarService : ICarService
     private readonly IAttachService attachService;
     public CarService(IUnitOfWork unitOfWork, IMapper mapper, IAttachService attachService)
     {
-        this.unitOfWork = unitOfWork;
         this.mapper = mapper;
+        this.unitOfWork = unitOfWork;
         this.attachService = attachService;
     }
 
@@ -27,7 +27,7 @@ public class CarService : ICarService
     {
         var existCar = await this.unitOfWork.Cars.GetAsync(c => c.Number.Equals(dto.Number) , includes: new[] { "Attach" });
         if (existCar is not null)
-            throw new AlreadyExistException("This car number is already exist");
+            throw new AlreadyExistException("This car is already exist");
 
         var mappedCar = this.mapper.Map<Car>(dto);
         await this.unitOfWork.Cars.AddAsync(mappedCar);
@@ -40,7 +40,11 @@ public class CarService : ICarService
     {
         var existCar = await this.unitOfWork.Cars.GetAsync(c => c.Id.Equals(dto.Id), includes: new[] { "Attach" });
         if (existCar is null)
-            throw new NotFoundException("This car number is not found");
+            throw new NotFoundException("This car is not found");
+
+        var checkCar = await this.unitOfWork.Cars.GetAsync(c => c.Number.Equals(dto.Number));
+        if (checkCar is not null)
+            throw new AlreadyExistException("This car is already exist");
 
         var mappedCar = this.mapper.Map(dto, existCar);
         this.unitOfWork.Cars.Update(mappedCar);
