@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanPlanet.API.Controllers;
 
-public class CitiesController : BaseController
+public class DistrictsController : BaseController
 {
     private readonly IDistrictService districtService;
 
-    public CitiesController(IDistrictService districtService)
+    public DistrictsController(IDistrictService districtService)
     {
         this.districtService = districtService;
     }
