@@ -17,7 +17,7 @@ public interface IUnitOfWork : IDisposable
     IRepository<Attach> Attachments { get; }
     IRepository<Statistic> Statistics { get; }
     IRepository<Address> Addresses { get; }
-    IRepository<City> Cities { get; }
+    IRepository<District> Districts { get; }
     IRepository<Country> Countries { get; }
     IRepository<Region> Regions { get; }
     IRepository<Street> Streets { get; }

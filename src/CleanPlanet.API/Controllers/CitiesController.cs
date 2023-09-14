@@ -7,11 +7,11 @@ namespace CleanPlanet.API.Controllers;
 
 public class CitiesController : BaseController
 {
-    private readonly ICityService cityService;
+    private readonly IDistrictService districtService;
 
-    public CitiesController(ICityService cityService)
+    public CitiesController(IDistrictService districtService)
     {
-        this.cityService = cityService;
+        this.districtService = districtService;
     }
 
     [HttpPost("set")]
@@ -20,7 +20,7 @@ public class CitiesController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.cityService.SaveInDBAsync()
+            Data = await this.districtService.SaveInDBAsync()
         });
 
 
@@ -30,7 +30,7 @@ public class CitiesController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.cityService.RetrieveByIdAsync(id)
+            Data = await this.districtService.RetrieveByIdAsync(id)
         });
 
 
@@ -40,6 +40,6 @@ public class CitiesController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.cityService.RetrieveAllAsync(pagination)
+            Data = await this.districtService.RetrieveAllAsync(pagination)
         });
 }

@@ -5,7 +5,7 @@ namespace CleanPlanet.Service.Interfaces;
 
 public interface IRegionService
 {
-    Task<bool> SaveInDBAsync();
-    Task<RegionResultDto> RetrieveByIdAsync(long id);
-    Task<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams pagination);
+    ValueTask<bool> SaveInDBAsync();
+    ValueTask<RegionResultDto> RetrieveByIdAsync(long id);
+    ValueTask<IEnumerable<RegionResultDto>> RetrieveAllAsync(PaginationParams pagination);
 }

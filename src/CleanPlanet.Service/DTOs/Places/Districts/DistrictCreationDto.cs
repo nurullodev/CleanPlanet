@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace CleanPlanet.Service.DTOs.Places.Cities;
+namespace CleanPlanet.Service.DTOs.Places.Districts;
 
-public class CityCreationDto
+public class DistrictCreationDto
 {
     [JsonProperty("id")]
     public long Id { get; set; }

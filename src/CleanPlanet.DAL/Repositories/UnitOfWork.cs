@@ -7,7 +7,6 @@ using CleanPlanet.Domain.Entities.Drivers;
 using CleanPlanet.Domain.Entities.Statistics;
 using CleanPlanet.Domain.Entities.TrashCans;
 using CleanPlanet.Domain.Entities.Users;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.DAL.Repositories;
 
@@ -25,7 +24,7 @@ public class UnitOfWork : IUnitOfWork
         Statistics = new Repository<Statistic>(dbContext);
         Attachments = new Repository<Attach>(dbContext);
         Addresses = new Repository<Address>(dbContext);
-        Cities = new Repository<City>(dbContext);
+        Districts = new Repository<District>(dbContext);
         Countries = new Repository<Country>(dbContext);
         Regions = new Repository<Region>(dbContext);
         Streets = new Repository<Street>(dbContext);
@@ -45,7 +44,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IRepository<Address> Addresses { get; }
 
-    public IRepository<City> Cities { get; }
+    public IRepository<District> Districts { get; }
 
     public IRepository<Country> Countries { get; }
 

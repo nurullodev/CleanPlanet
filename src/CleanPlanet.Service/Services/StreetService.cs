@@ -10,22 +10,24 @@ namespace CleanPlanet.Service.Services;
 
 public class StreetService : IStreetService
 {
-    private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
+    private readonly IUnitOfWork unitOfWork;
     public StreetService(IUnitOfWork unitOfWork, IMapper mapper)
     {
-        this.unitOfWork = unitOfWork;
         this.mapper = mapper;
+        this.unitOfWork = unitOfWork;
     }
 
     public async ValueTask<StreetResultDto> CreateAsync(StreetCreationDto dto)
     {
         var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Name.Equals(dto.Name));
         if (existStreet is not null)
-            throw new AlreadyExistException("This street name is already exist");
+            throw new AlreadyExistException("This street is already exist");
 
-        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId))
-                        ?? throw new NotFoundException("This region Id is not found");
+        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId));
+        if (region is null)
+            throw new NotFoundException("This region is not found");
+
         var mappedStreet = this.mapper.Map<Street>(dto);
         mappedStreet.RegionId = dto.RegionId;
         mappedStreet.Region = region;
@@ -39,13 +41,14 @@ public class StreetService : IStreetService
     {
         var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(dto.Id));
         if (existStreet is null)
-            throw new NotFoundException("This street Id is not found");
+            throw new NotFoundException("This street is not found");
 
         if (existStreet.Name.Equals(dto.Name))
-            throw new AlreadyExistException("This street name is already exist");
+            throw new AlreadyExistException("This street is already exist");
 
-        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId))
-                        ?? throw new NotFoundException("This region Id is not found");
+        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId));
+        if (region is null)
+            throw new NotFoundException("This region is not found");
 
         var mappedStreet = this.mapper.Map(dto, existStreet);
         mappedStreet.RegionId = dto.RegionId;
@@ -60,7 +63,7 @@ public class StreetService : IStreetService
     {
         var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(id));
         if (existStreet is null)
-            throw new NotFoundException("This street Id is not found");
+            throw new NotFoundException("This street is not found");
 
         this.unitOfWork.Streets.Destroy(existStreet);
         await this.unitOfWork.Streets.SaveAsync();
@@ -71,7 +74,7 @@ public class StreetService : IStreetService
     {
         var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(id), includes: new[] { "Region" });
         if (existStreet is null)
-            throw new NotFoundException("This street Id is not found");
+            throw new NotFoundException("This street is not found");
 
         return this.mapper.Map<StreetResultDto>(existStreet);
     }

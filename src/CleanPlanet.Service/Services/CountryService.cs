@@ -20,6 +20,36 @@ public class CountryService : ICountryService
         this.mapper = mapper;
         this.unitOfWork = unitOfWork;
     }
+
+    public async Task<bool> SaveInDBAsync()
+    {
+        var dbSource = this.unitOfWork.Countries.GetAll();
+        if (dbSource.Any())
+            throw new AlreadyExistException("Countries are already exist");
+
+        string path = @"..//..//..//../CleanPlanet/src/CleanPlanet.Shared/Files/counties.json";
+        var source = File.ReadAllText(path);
+        var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
+
+        foreach (var country in countries)
+        {
+            var mappedCountry = this.mapper.Map<Country>(country);
+            await this.unitOfWork.Countries.AddAsync(mappedCountry);
+            await this.unitOfWork.Countries.SaveAsync();
+        }
+        return true;
+    }
+
+    public async Task<CountryResultDto> RetrieveByIdAsync(long id)
+    {
+        var country = await this.unitOfWork.Countries.GetAsync(r => r.Id.Equals(id));
+        if (country is null)
+            throw new NotFoundException("This country is not found");
+
+        var mappedCountry = this.mapper.Map<CountryResultDto>(country);
+        return mappedCountry;
+    }
+
     public async Task<IEnumerable<CountryResultDto>> RetrieveAllAsync(PaginationParams pagination)
 	{
 		var countries = await this.unitOfWork.Countries.GetAll()
@@ -27,34 +57,5 @@ public class CountryService : ICountryService
 			.ToListAsync();
 		var result = this.mapper.Map<IEnumerable<CountryResultDto>>(countries);
 		return result;
-	}
-
-	public async Task<CountryResultDto> RetrieveByIdAsync(long id)
-	{
-		var country = await this.unitOfWork.Countries.GetAsync(r => r.Id.Equals(id));
-		if (country is null)
-			throw new NotFoundException("This country is not found");
-
-		var mappedCountry = this.mapper.Map<CountryResultDto>(country);
-		return mappedCountry;
-	}
-
-	public async Task<bool> SaveInDBAsync()
-	{
-		var dbSource = this.unitOfWork.Countries.GetAll();
-		if (dbSource.Any())
-			throw new AlreadyExistException("Countries are already exist");
-
-		string path = @"..//..//..//../CleanPlanet/src/CleanPlanet.Shared/Files/counties.json";
-		var source = File.ReadAllText(path);
-		var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
-
-		foreach (var country in countries)
-		{
-			var mappedCountry = this.mapper.Map<Country>(country);
-			await this.unitOfWork.Countries.AddAsync(mappedCountry);
-			await this.unitOfWork.Countries.SaveAsync();
-		}
-		return true;
 	}
 }
