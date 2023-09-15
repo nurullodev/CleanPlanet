@@ -3,11 +3,8 @@ using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Service.DTOs.Places.Addresses;
-using CleanPlanet.Service.DTOs.Users;
 using CleanPlanet.Service.Exceptions;
-using CleanPlanet.Service.Extensions;
 using CleanPlanet.Service.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.Service.Services;
 
@@ -75,30 +72,18 @@ public class AddressService : IAddressService
         return this.mapper.Map<AddressResultDto>(mappedAddress);
     }
 
-    public async ValueTask<bool> RemoveAsync(long id)
+    public ValueTask<bool> RemoveAsync(long id)
     {
-        var existAddress = await this.unitOfWork.Addresses.GetAsync(a => a.Id.Equals(id));
-        if (existAddress is null)
-            throw new NotFoundException("This address is not found");
-
-        this.unitOfWork.Addresses.Delete(existAddress);
-        await this.unitOfWork.Addresses.SaveAsync();
-        return true;
+        throw new NotImplementedException();
     }
 
-    public async ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
+    public ValueTask<IEnumerable<AddressResultDto>> RetrieveAsync(PaginationParams pagination)
     {
-        var existAddress = await this.unitOfWork.Addresses.GetAsync(a => a.Id.Equals(id));
-        if (existAddress is null)
-            throw new NotFoundException("This address is not found");
-
-        return this.mapper.Map<AddressResultDto>(existAddress);
+        throw new NotImplementedException();
     }
 
-    public async ValueTask<IEnumerable<AddressResultDto>> RetrieveAsync(PaginationParams pagination)
+    public ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
     {
-        var addresses = await this.unitOfWork.Addresses.GetAll().ToPaginate(pagination).ToListAsync();
-        var result = this.mapper.Map<IEnumerable<AddressResultDto>>(addresses);
-        return result;
+        throw new NotImplementedException();
     }
 }
