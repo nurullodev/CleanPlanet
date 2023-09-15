@@ -11,6 +11,6 @@ public class RegionCreationDto
     [JsonProperty("name")]
     public string Name { get; set; }
 
-    [DisplayName("country_id")]
+    [JsonProperty("country_id")]
     public long CountryId { get; set; }
 }
