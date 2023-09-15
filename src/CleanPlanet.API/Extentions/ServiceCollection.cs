@@ -17,6 +17,7 @@ public static class ServiceCollection
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRegionService, RegionService>();
+        services.AddScoped<IStreetService, RegionService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IDistrictService, DistrictService>();
         services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
