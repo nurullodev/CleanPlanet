@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CleanPlanet.Service.Interfaces;
 
-namespace CleanPlanet.Service.Interfaces
+public interface IAuthorizationService
 {
-    internal class IAuthService
-    {
-    }
+    ValueTask<string> GenerateTokenAsync(string phone, string originalPassword);
 }
