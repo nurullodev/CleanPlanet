@@ -26,38 +26,72 @@ public class AppDbContext : DbContext
     public DbSet<Region> Regions { get; set; }
     public DbSet<Street> Streets { get; set; }
 
-    #region Seet Data
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
-          .HasData(new User { Id = 1, FirstName = "Nurullo", LastName = "Mansurjon", Email = "mansurjon@gmail.com", Phone = "+998942240816", Role = Domain.Enums.UserRole.User, AddressId = 1, CreatedAt = DateTime.UtcNow, Password = "1234" });
+        #region Fluent API
+        modelBuilder.Entity<Address>()
+              .HasOne(t => t.Street);
 
         modelBuilder.Entity<Address>()
-          .HasData(new Address { Id = 1, DistrictId = 182, StreetId = 1, RegionId = 12, QuantityOfCar = 10, CountryId = 233, CreatedAt = DateTime.UtcNow });
+              .HasOne(t => t.District);
 
-        modelBuilder.Entity<District>()
-          .HasData(new District { Id = 182, CreatedAt = DateTime.UtcNow, RegionId = 12, Name = "Uchkoprik tumani" });
+        modelBuilder.Entity<Address>()
+              .HasOne(t => t.Street);
 
-        modelBuilder.Entity<Country>()
-          .HasData(new Country { Id = 233, CountryCode = "UZ", Name = "Uzbekistan", CreatedAt = DateTime.UtcNow });
+        modelBuilder.Entity<Address>()
+              .HasOne(t => t.Country);
 
-        modelBuilder.Entity<Region>()
-          .HasData(new Region { Id = 12, CountryId = 233, Name = "Fargona viloyati", });
-
-        modelBuilder.Entity<Street>()
-          .HasData(new Street { Id = 1, Name = "Qang'il", RegionId = 12, CreatedAt = DateTime.UtcNow });
-
-        modelBuilder.Entity<Attach>()
-          .HasData(new Attach { Id = 1, FileName = "City", FilePath = @"" });
+        modelBuilder.Entity<User>()
+              .HasOne(t => t.Address)
+              .WithMany(x => x.Users)
+              .HasForeignKey(x => x.AddressId);
 
         modelBuilder.Entity<Car>()
-          .HasData(new Car { Id = 1, AttachId = 1, Number = "777ZZZ", QunatityTrashCan = 20, Type = "ISUZU", CreatedAt = DateTime.UtcNow });
+              .HasOne(t => t.Attach);
 
         modelBuilder.Entity<Driver>()
-          .HasData(new Driver { Id = 1, AttachId = 1, CarId = 1, FirstName = "Bekzod", LastName = "Xokimov", Password = "xokimov", Phone = "+998908976789", Role = Domain.Enums.UserRole.Driver, DateOfBirth = new DateTimeOffset(new DateTime(1992, 02, 02)).UtcDateTime, CreatedAt = DateTime.UtcNow });
+              .HasOne(t => t.Attach);
+
+        modelBuilder.Entity<Driver>()
+              .HasOne(x => x.Car);
 
         modelBuilder.Entity<TrashCan>()
-          .HasData(new TrashCan { Id = 1, CarId = 1, DueData = new DateTimeOffset(new DateTime(2023, 12, 12)).UtcDateTime, AddressId = 1, CreatedAt = DateTime.UtcNow });
+              .HasOne(t => t.Address);
+
+        modelBuilder.Entity<TrashCan>()
+              .HasOne(t => t.Car);
+
+        modelBuilder.Entity<Statistic>()
+              .HasOne(t => t.Address);
         #endregion
+
+        //#region Seet Data
+        //modelBuilder.Entity<User>()
+        //  .HasData(new User { Id = 1, FirstName = "Nurullo", LastName = "Mansurjon", Email = "mansurjon@gmail.com", Phone = "+998942240816", Role = Domain.Enums.UserRole.User, AddressId = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = null, Password = "1234" });
+
+        //modelBuilder.Entity<Address>()
+        //  .HasData(new Address { Id = 1, DistrictId = 182, StreetId = 1, RegionId = 12, QuantityOfCar = 10, CountryId = 233, CreatedAt = DateTime.UtcNow });
+
+        //modelBuilder.Entity<District>()
+        //  .HasData(new District { Id = 182, CreatedAt = DateTime.UtcNow, RegionId = 12, Name = "Uchkoprik tumani", UpdatedAt = null });
+
+        //modelBuilder.Entity<Country>()
+        //  .HasData(new Country { Id = 233, CountryCode = "UZ", Name = "Uzbekistan", CreatedAt = DateTime.UtcNow, UpdatedAt = null });
+
+        //modelBuilder.Entity<Region>()
+        //  .HasData(new Region { Id = 12, CountryId = 233, Name = "Fargona viloyati",CreatedAt = DateTime.UtcNow, UpdatedAt = null });
+
+        //modelBuilder.Entity<Attach>()
+        //  .HasData(new Attach { Id = 1, FileName = "City", FilePath = @"" });
+
+        //modelBuilder.Entity<Car>()
+        //  .HasData(new Car { Id = 1, AttachId = 1, Number = "777ZZZ", QunatityTrashCan = 20, Type = "ISUZU", CreatedAt = DateTime.UtcNow, UpdatedAt = null });
+
+        //modelBuilder.Entity<Driver>()
+        //  .HasData(new Driver { Id = 1, AttachId = 1, CarId = 1, FirstName = "Bekzod", LastName = "Xokimov", Password = "xokimov", Phone = "+998908976789", Role = Domain.Enums.UserRole.Driver, DateOfBirth = new DateTimeOffset(new DateTime(1992, 02, 02)).UtcDateTime, CreatedAt = DateTime.UtcNow, UpdatedAt = null});
+
+        //modelBuilder.Entity<TrashCan>()
+        //  .HasData(new TrashCan { Id = 1, CarId = 1, DueData = new DateTimeOffset(new DateTime(2023, 12, 12)).UtcDateTime, AddressId = 1, CreatedAt = DateTime.UtcNow,UpdatedAt = null});
+        //#endregion
     }
 }

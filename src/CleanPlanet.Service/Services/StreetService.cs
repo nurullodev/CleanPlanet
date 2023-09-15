@@ -24,13 +24,13 @@ public class StreetService : IStreetService
         if (existStreet is not null)
             throw new AlreadyExistException("This street is already exist");
 
-        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId));
-        if (region is null)
-            throw new NotFoundException("This region is not found");
+        var district = await this.unitOfWork.Districts.GetAsync(r => r.Id.Equals(dto.DistrictId));
+        if (district is null)
+            throw new NotFoundException("This district is not found");
 
         var mappedStreet = this.mapper.Map<Street>(dto);
-        mappedStreet.RegionId = dto.RegionId;
-        mappedStreet.Region = region;
+        mappedStreet.DistrictId = dto.DistrictId;
+        mappedStreet.District = district;
         await this.unitOfWork.Streets.AddAsync(mappedStreet);
         await this.unitOfWork.Streets.SaveAsync();
 
@@ -46,13 +46,13 @@ public class StreetService : IStreetService
         if (existStreet.Name.Equals(dto.Name))
             throw new AlreadyExistException("This street is already exist");
 
-        var region = await this.unitOfWork.Regions.GetAsync(r => r.Id.Equals(dto.RegionId));
-        if (region is null)
-            throw new NotFoundException("This region is not found");
+        var district = await this.unitOfWork.Districts.GetAsync(r => r.Id.Equals(dto.DistrictId));
+        if (district is null)
+            throw new NotFoundException("This district is not found");
 
         var mappedStreet = this.mapper.Map(dto, existStreet);
-        mappedStreet.RegionId = dto.RegionId;
-        mappedStreet.Region = region;
+        mappedStreet.DistrictId = dto.DistrictId;
+        mappedStreet.District = district;
         this.unitOfWork.Streets.Update(mappedStreet);
         await this.unitOfWork.Streets.SaveAsync();
 

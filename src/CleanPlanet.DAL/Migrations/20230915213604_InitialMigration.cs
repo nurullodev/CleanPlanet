@@ -157,7 +157,7 @@ namespace CleanPlanet.DAL.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    RegionId = table.Column<long>(type: "bigint", nullable: false),
+                    DistrictId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDelete = table.Column<bool>(type: "boolean", nullable: false)
@@ -166,11 +166,10 @@ namespace CleanPlanet.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Streets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Streets_Regions_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "Regions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Streets_Districts_DistrictId",
+                        column: x => x.DistrictId,
+                        principalTable: "Districts",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -293,56 +292,6 @@ namespace CleanPlanet.DAL.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.InsertData(
-                table: "Attachs",
-                columns: new[] { "Id", "CreatedAt", "FileName", "FilePath", "IsDelete", "UpdatedAt" },
-                values: new object[] { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "City", "", false, null });
-
-            migrationBuilder.InsertData(
-                table: "Countries",
-                columns: new[] { "Id", "CountryCode", "CreatedAt", "IsDelete", "Name", "UpdatedAt" },
-                values: new object[] { 233L, "UZ", new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6696), false, "Uzbekistan", null });
-
-            migrationBuilder.InsertData(
-                table: "Cars",
-                columns: new[] { "Id", "AttachId", "CreatedAt", "IsDelete", "Number", "QunatityTrashCan", "Type", "UpdatedAt" },
-                values: new object[] { 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6760), false, "777ZZZ", 20, "ISUZU", null });
-
-            migrationBuilder.InsertData(
-                table: "Regions",
-                columns: new[] { "Id", "CountryId", "CreatedAt", "IsDelete", "Name", "UpdatedAt" },
-                values: new object[] { 12L, 233L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Fargona viloyati", null });
-
-            migrationBuilder.InsertData(
-                table: "Districts",
-                columns: new[] { "Id", "CreatedAt", "IsDelete", "Name", "RegionId", "UpdatedAt" },
-                values: new object[] { 182L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6672), false, "Uchkoprik tumani", 12L, null });
-
-            migrationBuilder.InsertData(
-                table: "Drivers",
-                columns: new[] { "Id", "AttachId", "CarId", "CreatedAt", "DateOfBirth", "FirstName", "IsDelete", "LastName", "Password", "Phone", "Role", "UpdatedAt" },
-                values: new object[] { 1L, 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6812), new DateTime(1992, 2, 1, 19, 0, 0, 0, DateTimeKind.Utc), "Bekzod", false, "Xokimov", "xokimov", "+998908976789", 3, null });
-
-            migrationBuilder.InsertData(
-                table: "Streets",
-                columns: new[] { "Id", "CreatedAt", "IsDelete", "Name", "RegionId", "UpdatedAt" },
-                values: new object[] { 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6725), false, "Qang'il", 12L, null });
-
-            migrationBuilder.InsertData(
-                table: "Addresses",
-                columns: new[] { "Id", "CountryId", "CreatedAt", "DistrictId", "IsDelete", "QuantityOfCar", "RegionId", "StreetId", "UpdatedAt" },
-                values: new object[] { 1L, 233L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6610), 182L, false, 10, 12L, 1L, null });
-
-            migrationBuilder.InsertData(
-                table: "TrashCans",
-                columns: new[] { "Id", "AddressId", "CarId", "CreatedAt", "DueData", "IsDelete", "UpdatedAt" },
-                values: new object[] { 1L, 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6848), new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Utc), false, null });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "AddressId", "CreatedAt", "Email", "FirstName", "IsDelete", "LastName", "Password", "Phone", "Role", "UpdatedAt" },
-                values: new object[] { 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6343), "mansurjon@gmail.com", "Nurullo", false, "Mansurjon", "1234", "+998942240816", 1, null });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CountryId",
                 table: "Addresses",
@@ -394,9 +343,9 @@ namespace CleanPlanet.DAL.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Streets_RegionId",
+                name: "IX_Streets_DistrictId",
                 table: "Streets",
-                column: "RegionId");
+                column: "DistrictId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrashCans_AddressId",
@@ -439,10 +388,10 @@ namespace CleanPlanet.DAL.Migrations
                 name: "Attachs");
 
             migrationBuilder.DropTable(
-                name: "Districts");
+                name: "Streets");
 
             migrationBuilder.DropTable(
-                name: "Streets");
+                name: "Districts");
 
             migrationBuilder.DropTable(
                 name: "Regions");
