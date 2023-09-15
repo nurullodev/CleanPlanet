@@ -81,7 +81,7 @@ public class UserService : IUserService
 
         var checkedPassword = PasswordHash.Verify(existUser.Password, password);
         if (!checkedPassword)
-            throw new InvalidPasswordException("Invalid password");
+            throw new InvalidPasswordException("This user password is invalid");
 
         return this.mapper.Map<UserResultDto>(existUser);
     }

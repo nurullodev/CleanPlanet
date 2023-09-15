@@ -22,7 +22,7 @@ public class TrashCanService : ITrashCanService
     {
         var existCar = await this.unitOfWork.Cars.GetAsync(t => t.Id.Equals(dto.CarId));
         if (existCar is null)
-            throw new NotFoundException("This car Id is not found");
+            throw new NotFoundException("This car is not found");
         
         var mappedTrashCan = this.mapper.Map<TrashCan>(dto);
         mappedTrashCan.CarId = existCar.Id;
