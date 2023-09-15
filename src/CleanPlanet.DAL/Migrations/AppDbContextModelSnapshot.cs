@@ -17,7 +17,7 @@ namespace CleanPlanet.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -71,7 +71,7 @@ namespace CleanPlanet.DAL.Migrations
                         {
                             Id = 1L,
                             CountryId = 233L,
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(396),
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6610),
                             DistrictId = 182L,
                             IsDelete = false,
                             QuantityOfCar = 10,
@@ -112,7 +112,7 @@ namespace CleanPlanet.DAL.Migrations
                         {
                             Id = 233L,
                             CountryCode = "UZ",
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(429),
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6696),
                             IsDelete = false,
                             Name = "Uzbekistan"
                         });
@@ -151,9 +151,9 @@ namespace CleanPlanet.DAL.Migrations
                         new
                         {
                             Id = 182L,
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(411),
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6672),
                             IsDelete = false,
-                            Name = "Uchko�prik tumani",
+                            Name = "Uchkoprik tumani",
                             RegionId = 12L
                         });
                 });
@@ -194,7 +194,7 @@ namespace CleanPlanet.DAL.Migrations
                             CountryId = 233L,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDelete = false,
-                            Name = "Farg�ona viloyati"
+                            Name = "Fargona viloyati"
                         });
                 });
 
@@ -231,7 +231,7 @@ namespace CleanPlanet.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(452),
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6725),
                             IsDelete = false,
                             Name = "Qang'il",
                             RegionId = 12L
@@ -316,7 +316,7 @@ namespace CleanPlanet.DAL.Migrations
                         {
                             Id = 1L,
                             AttachId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(519),
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6760),
                             IsDelete = false,
                             Number = "777ZZZ",
                             QunatityTrashCan = 20,
@@ -379,12 +379,12 @@ namespace CleanPlanet.DAL.Migrations
                             Id = 1L,
                             AttachId = 1L,
                             CarId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(561),
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6812),
                             DateOfBirth = new DateTime(1992, 2, 1, 19, 0, 0, 0, DateTimeKind.Utc),
                             FirstName = "Bekzod",
                             IsDelete = false,
                             LastName = "Xokimov",
-                            Password = "xokimoff",
+                            Password = "xokimov",
                             Phone = "+998908976789",
                             Role = 3
                         });
@@ -457,7 +457,7 @@ namespace CleanPlanet.DAL.Migrations
                             Id = 1L,
                             AddressId = 1L,
                             CarId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(577),
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6848),
                             DueData = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Utc),
                             IsDelete = false
                         });
@@ -512,14 +512,14 @@ namespace CleanPlanet.DAL.Migrations
                         {
                             Id = 1L,
                             AddressId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(273),
-                            Email = "nurmatovnurullo.n@gmail.com",
+                            CreatedAt = new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6343),
+                            Email = "mansurjon@gmail.com",
                             FirstName = "Nurullo",
                             IsDelete = false,
                             LastName = "Mansurjon",
-                            Password = "Nurullo0816",
+                            Password = "1234",
                             Phone = "+998942240816",
-                            Role = 2
+                            Role = 1
                         });
                 });
 

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CleanPlanet.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -301,47 +301,47 @@ namespace CleanPlanet.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "Id", "CountryCode", "CreatedAt", "IsDelete", "Name", "UpdatedAt" },
-                values: new object[] { 233L, "UZ", new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(429), false, "Uzbekistan", null });
+                values: new object[] { 233L, "UZ", new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6696), false, "Uzbekistan", null });
 
             migrationBuilder.InsertData(
                 table: "Cars",
                 columns: new[] { "Id", "AttachId", "CreatedAt", "IsDelete", "Number", "QunatityTrashCan", "Type", "UpdatedAt" },
-                values: new object[] { 1L, 1L, new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(519), false, "777ZZZ", 20, "ISUZU", null });
+                values: new object[] { 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6760), false, "777ZZZ", 20, "ISUZU", null });
 
             migrationBuilder.InsertData(
                 table: "Regions",
                 columns: new[] { "Id", "CountryId", "CreatedAt", "IsDelete", "Name", "UpdatedAt" },
-                values: new object[] { 12L, 233L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Farg�ona viloyati", null });
+                values: new object[] { 12L, 233L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Fargona viloyati", null });
 
             migrationBuilder.InsertData(
                 table: "Districts",
                 columns: new[] { "Id", "CreatedAt", "IsDelete", "Name", "RegionId", "UpdatedAt" },
-                values: new object[] { 182L, new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(411), false, "Uchko�prik tumani", 12L, null });
+                values: new object[] { 182L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6672), false, "Uchkoprik tumani", 12L, null });
 
             migrationBuilder.InsertData(
                 table: "Drivers",
                 columns: new[] { "Id", "AttachId", "CarId", "CreatedAt", "DateOfBirth", "FirstName", "IsDelete", "LastName", "Password", "Phone", "Role", "UpdatedAt" },
-                values: new object[] { 1L, 1L, 1L, new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(561), new DateTime(1992, 2, 1, 19, 0, 0, 0, DateTimeKind.Utc), "Bekzod", false, "Xokimov", "xokimoff", "+998908976789", 3, null });
+                values: new object[] { 1L, 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6812), new DateTime(1992, 2, 1, 19, 0, 0, 0, DateTimeKind.Utc), "Bekzod", false, "Xokimov", "xokimov", "+998908976789", 3, null });
 
             migrationBuilder.InsertData(
                 table: "Streets",
                 columns: new[] { "Id", "CreatedAt", "IsDelete", "Name", "RegionId", "UpdatedAt" },
-                values: new object[] { 1L, new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(452), false, "Qang'il", 12L, null });
+                values: new object[] { 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6725), false, "Qang'il", 12L, null });
 
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "Id", "CountryId", "CreatedAt", "DistrictId", "IsDelete", "QuantityOfCar", "RegionId", "StreetId", "UpdatedAt" },
-                values: new object[] { 1L, 233L, new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(396), 182L, false, 10, 12L, 1L, null });
+                values: new object[] { 1L, 233L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6610), 182L, false, 10, 12L, 1L, null });
 
             migrationBuilder.InsertData(
                 table: "TrashCans",
                 columns: new[] { "Id", "AddressId", "CarId", "CreatedAt", "DueData", "IsDelete", "UpdatedAt" },
-                values: new object[] { 1L, 1L, 1L, new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(577), new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Utc), false, null });
+                values: new object[] { 1L, 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6848), new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Utc), false, null });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AddressId", "CreatedAt", "Email", "FirstName", "IsDelete", "LastName", "Password", "Phone", "Role", "UpdatedAt" },
-                values: new object[] { 1L, 1L, new DateTime(2023, 9, 15, 19, 46, 6, 886, DateTimeKind.Utc).AddTicks(273), "nurmatovnurullo.n@gmail.com", "Nurullo", false, "Mansurjon", "Nurullo0816", "+998942240816", 2, null });
+                values: new object[] { 1L, 1L, new DateTime(2023, 9, 15, 20, 47, 26, 512, DateTimeKind.Utc).AddTicks(6343), "mansurjon@gmail.com", "Nurullo", false, "Mansurjon", "1234", "+998942240816", 1, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CountryId",
