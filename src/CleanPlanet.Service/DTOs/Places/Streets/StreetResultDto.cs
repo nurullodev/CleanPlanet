@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using CleanPlanet.Service.DTOs.Places.Regions;
+using CleanPlanet.Service.DTOs.Places.Districts;
 
 namespace CleanPlanet.Service.DTOs.Places.Streets;
 
@@ -11,6 +11,6 @@ public class StreetResultDto
     [DisplayName("Name")]
     public string Name { get; set; }
 
-    [DisplayName("Region result")]
-    public RegionResultDto Region { get; set; }
+    [DisplayName("District result")]
+    public DistrictResultDto District { get; set; }
 }
