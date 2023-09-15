@@ -19,17 +19,17 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        // Add Custom services
+        builder.Services.AddServices();
 
         //Context
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        // Add Custom services
-        builder.Services.AddServices();
-
         // JWT
         builder.Services.AddJwt(builder.Configuration);
         builder.Services.ConfigureSwagger();
+
         // Logger
         //var logger = new LoggerConfiguration()
         //        .ReadFrom.Configuration(builder.Configuration)

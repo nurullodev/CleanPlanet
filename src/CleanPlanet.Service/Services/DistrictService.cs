@@ -28,7 +28,7 @@ public class DistrictService : IDistrictService
         if (dbSource.Any())
             throw new AlreadyExistException("Districts are already exist");
 
-		string path = @"..//..//..//../CleanPlanet/src/CleanPlanet.Shared/Files/districts.json";
+		string path = @"D:\Portfolio\CleanPlanet\src\CleanPlanet.Shared\Files\districts.json";
         var source = File.ReadAllText(path);
 
         var districts = JsonConvert.DeserializeObject<IEnumerable<DistrictCreationDto>>(source);

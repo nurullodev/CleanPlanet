@@ -14,10 +14,10 @@ public static class ServiceCollection
 {
     public static void AddServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+        services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped<ICarService, CarService>();  
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRegionService, RegionService>();
@@ -26,6 +26,7 @@ public static class ServiceCollection
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IDistrictService, DistrictService>();
+        services.AddScoped<IAttachService, AttachService>(); 
         services.AddScoped<IAuthorizationService, AuthorizationService>();
     }
 

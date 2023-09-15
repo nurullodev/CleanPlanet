@@ -25,7 +25,7 @@ public class CarService : ICarService
 
     public async ValueTask<CarResultDto> CreateAsync(CarCreationDto dto)
     {
-        var existCar = await this.unitOfWork.Cars.GetAsync(c => c.Number.Equals(dto.Number) , includes: new[] { "Attach" });
+        var existCar = await this.unitOfWork.Cars.GetAsync(c => c.Number.Equals(dto.Number));
         if (existCar is not null)
             throw new AlreadyExistException("This car is already exist");
 
