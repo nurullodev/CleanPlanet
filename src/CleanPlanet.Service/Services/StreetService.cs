@@ -72,7 +72,7 @@ public class StreetService : IStreetService
 
     public async ValueTask<StreetResultDto> RetrieveByIdAsync(long id)
     {
-        var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(id), includes: new[] { "Region" });
+        var existStreet = await this.unitOfWork.Streets.GetAsync(s => s.Id.Equals(id), includes: new[] { "District" });
         if (existStreet is null)
             throw new NotFoundException("This street is not found");
 
@@ -81,7 +81,7 @@ public class StreetService : IStreetService
 
     public async ValueTask<IEnumerable<StreetResultDto>> RetrieveAsync()
     {
-        var streets = await this.unitOfWork.Streets.GetAll(includes: new[] { "Region" }).ToListAsync();
+        var streets = await this.unitOfWork.Streets.GetAll(includes: new[] { "District" }).ToListAsync();
         var result = this.mapper.Map<IEnumerable<StreetResultDto>>(streets);
         return result;
     }

@@ -3,8 +3,10 @@ using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Service.DTOs.Places.Addresses;
+using CleanPlanet.Service.DTOs.Places.Streets;
 using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.Service.Services;
 
@@ -37,9 +39,18 @@ public class AddressService : IAddressService
             throw new NotFoundException("This street is not found");
 
         var mappedAddress = this.mapper.Map<Address>(dto);
+        mappedAddress.DistrictId = district.Id;
+        mappedAddress.CountryId = country.Id;
+        mappedAddress.RegionId = region.Id;
+        mappedAddress.StreetId = street.Id;
+
         await this.unitOfWork.Addresses.AddAsync(mappedAddress);
         await this.unitOfWork.Addresses.SaveAsync();
 
+        mappedAddress.District = district;
+        mappedAddress.Country = country;
+        mappedAddress.Region = region;
+        mappedAddress.Street = street;
         return this.mapper.Map<AddressResultDto>(mappedAddress);
     }
 
@@ -66,24 +77,44 @@ public class AddressService : IAddressService
             throw new NotFoundException("This street is not found");
 
         var mappedAddress = this.mapper.Map(dto,existAddress);
+        mappedAddress.DistrictId = district.Id;
+        mappedAddress.CountryId = country.Id;
+        mappedAddress.RegionId = region.Id;
+        mappedAddress.StreetId = street.Id;
+
         this.unitOfWork.Addresses.Update(mappedAddress);
         await this.unitOfWork.Addresses.SaveAsync();
 
+        mappedAddress.District = district;
+        mappedAddress.Country = country;
+        mappedAddress.Region = region;
+        mappedAddress.Street = street;
         return this.mapper.Map<AddressResultDto>(mappedAddress);
     }
 
-    public ValueTask<bool> RemoveAsync(long id)
+    public async ValueTask<bool> RemoveAsync(long id)
     {
-        throw new NotImplementedException();
+        var existAddress = await this.unitOfWork.Addresses.GetAsync(a => a.Id.Equals(id));
+        if (existAddress is null)
+            throw new NotFoundException("This address is not found");
+
+        this.unitOfWork.Addresses.Delete(existAddress);
+        await this.unitOfWork.Addresses.SaveAsync();
+        return true;
     }
 
-    public ValueTask<IEnumerable<AddressResultDto>> RetrieveAsync(PaginationParams pagination)
+    public async ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var existAddress = await this.unitOfWork.Addresses.GetAsync(a => a.Id.Equals(id), includes: new[] { "District", "Region", "Country", "Street" });
+        if (existAddress is null)
+            throw new NotFoundException("This address is not found");
+        return this.mapper.Map<AddressResultDto>(existAddress);
     }
 
-    public ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
+    public async ValueTask<IEnumerable<AddressResultDto>> RetrieveAsync(PaginationParams pagination)
     {
-        throw new NotImplementedException();
+        var addresses = await this.unitOfWork.Addresses.GetAll(includes: new[] { "District","Region", "Country", "Street" }).ToListAsync();
+        var result = this.mapper.Map<IEnumerable<AddressResultDto>>(addresses);
+        return result;
     }
 }
