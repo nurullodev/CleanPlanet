@@ -7,8 +7,8 @@ public class Address : Auditable
 {
 	public int QuantityOfCar { get; set; }
 
-	public long CityId { get; set; }
-	public District City { get; set; }
+	public long DistrictId { get; set; }
+	public District District { get; set; }
 
 	public long CountryId { get; set; }
 	public Country Country { get; set; }

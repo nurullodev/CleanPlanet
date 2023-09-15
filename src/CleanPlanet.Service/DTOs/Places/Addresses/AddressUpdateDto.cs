@@ -10,8 +10,8 @@ public class AddressUpdateDto
     [DisplayName("Quantity of the car")]
     public int QuantityOfCar { get; set; }
 
-    [DisplayName("City id")]
-    public long CityId { get; set; }
+    [DisplayName("District id")]
+    public long DistrictId { get; set; }
 
     [DisplayName("Country id")]
     public long CountryId { get; set; }
