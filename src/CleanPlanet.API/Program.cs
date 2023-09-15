@@ -1,6 +1,8 @@
 using CleanPlanet.API.Extentions;
+using CleanPlanet.API.Middlewares;
 using CleanPlanet.DAL.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace CleanPlanet.API;
 
@@ -17,12 +19,24 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+
         //Context
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         // Add Custom services
         builder.Services.AddServices();
+
+        // JWT
+        builder.Services.AddJwt(builder.Configuration);
+        builder.Services.ConfigureSwagger();
+        // Logger
+        //var logger = new LoggerConfiguration()
+        //        .ReadFrom.Configuration(builder.Configuration)
+        //        .Enrich.FromLogContext()
+        //        .CreateLogger();
+        //builder.Logging.ClearProviders();
+        //builder.Logging.AddSerilog(logger);
 
         var app = builder.Build();
 
@@ -32,11 +46,13 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        app.UseAuthentication();
 
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+        app.UseMiddleware<ExceptionHandlerMiddleware>();
 
+        app.UseAuthorization();
 
         app.MapControllers();
 
