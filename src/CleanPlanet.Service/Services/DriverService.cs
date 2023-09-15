@@ -62,7 +62,7 @@ public class DriverService : IDriverService
     {
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(id));
         if (existDriver is null)
-            throw new NotFoundException("This driver Id is not found");
+            throw new NotFoundException("This driver is not found");
 
         this.unitOfWork.Drivers.Delete(existDriver);
         await this.unitOfWork.Drivers.SaveAsync();
@@ -73,7 +73,7 @@ public class DriverService : IDriverService
     {
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(id));
         if (existDriver is null)
-            throw new NotFoundException("This driver Id is not found");
+            throw new NotFoundException("This driver is not found");
 
         this.unitOfWork.Drivers.Destroy(existDriver);
         await this.unitOfWork.Drivers.SaveAsync();
@@ -84,7 +84,7 @@ public class DriverService : IDriverService
     {
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(id), includes: new[] { "Attach", "Car" });
         if (existDriver is null)
-            throw new NotFoundException("This driver Id is not found");
+            throw new NotFoundException("This driver is not found");
 
         return this.mapper.Map<DriverResultDto>(existDriver);
     }
@@ -93,7 +93,7 @@ public class DriverService : IDriverService
     {
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Phone.Equals(phone), includes: new[] { "Attach", "Car" });
         if (existDriver is null)
-            throw new NotFoundException("This driver Id is not found");
+            throw new NotFoundException("This driver  is not found");
 
         bool checkPassword = PasswordHash.Verify(existDriver.Password, password);
         if (!checkPassword)
@@ -114,7 +114,7 @@ public class DriverService : IDriverService
     {
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(driverId));
         if (existDriver is null)
-            throw new NotFoundException("This driver Id is not found");
+            throw new NotFoundException("This driver is not found");
 
         var createdAttachment = await this.attachService.UploadAsync(dto);
         existDriver.AttachId = createdAttachment.Id;
@@ -129,7 +129,7 @@ public class DriverService : IDriverService
     {
         var existDriver = await this.unitOfWork.Drivers.GetAsync(p => p.Id.Equals(driverId), includes: new[] { "Attach" });
         if (existDriver is null)
-            throw new NotFoundException("This driver Id is not found");
+            throw new NotFoundException("This driver is not found");
 
         await this.attachService.RemoveAsync(existDriver.Attach);
         var createdAttachment = await this.attachService.UploadAsync(dto);
