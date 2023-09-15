@@ -14,8 +14,8 @@ public class AddressResultDto
 	[DisplayName("Quantity of the car")]
     public int QuantityOfCar { get; set; }
 
-	[DisplayName("City result")]
-	public DistrictResultDto City { get; set; }
+	[DisplayName("District result")]
+	public DistrictResultDto District { get; set; }
 
 	[DisplayName("Country result")]
 	public CountryResultDto Country { get; set; }

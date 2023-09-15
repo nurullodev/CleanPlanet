@@ -15,12 +15,12 @@ public static class ServiceCollection
     public static void AddServices(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
-        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRegionService, RegionService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IDistrictService, DistrictService>();
+        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IAuthorizationService, AuthorizationService>();
     }
 
