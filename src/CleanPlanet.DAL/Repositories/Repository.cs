@@ -62,9 +62,4 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditabl
 
         return query.Where(e => !e.IsDelete);
     }
-
-    public async Task SaveAsync()
-    {
-        await dbContext.SaveChangesAsync();
-    }
 }

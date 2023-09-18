@@ -28,7 +28,7 @@ public class TrashCanService : ITrashCanService
         mappedTrashCan.CarId = existCar.Id;
         mappedTrashCan.Car = existCar;
         await this.unitOfWork.TrashCans.AddAsync(mappedTrashCan);
-        await this.unitOfWork.TrashCans.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<TrashCanResultDto>(mappedTrashCan);
     }
@@ -48,7 +48,7 @@ public class TrashCanService : ITrashCanService
         mappedTrashCan.CarId = existCar.Id;
 
         this.unitOfWork.TrashCans.Update(mappedTrashCan);
-        await this.unitOfWork.TrashCans.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<TrashCanResultDto>(mappedTrashCan);
     }
@@ -60,7 +60,7 @@ public class TrashCanService : ITrashCanService
             throw new NotFoundException("This trash can is not found");
 
         this.unitOfWork.TrashCans.Destroy(existTrashCan);
-        await this.unitOfWork.TrashCans.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 

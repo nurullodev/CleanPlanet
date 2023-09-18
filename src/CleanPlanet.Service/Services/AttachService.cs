@@ -36,7 +36,7 @@ public class AttachService : IAttachService
         };
 
         await unitOfWork.Attachments.AddAsync(attachment);
-        await unitOfWork.Attachments.SaveAsync();
+        await unitOfWork.SaveAsync();
 
         return attachment;
     }
@@ -52,7 +52,7 @@ public class AttachService : IAttachService
             return false;
 
         unitOfWork.Attachments.Delete(attachment);
-        await unitOfWork.Attachments.SaveAsync();
+        await unitOfWork.SaveAsync();
 
         return true;
     }

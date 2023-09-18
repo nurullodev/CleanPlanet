@@ -36,7 +36,7 @@ public class RegionService : IRegionService
         {
             var mappedRegion = this.mapper.Map<Region>(region);
             await this.unitOfWork.Regions.AddAsync(mappedRegion);
-            await this.unitOfWork.Regions.SaveAsync();
+            await this.unitOfWork.SaveAsync();
         }
         return true;
     }

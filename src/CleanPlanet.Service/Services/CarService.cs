@@ -31,7 +31,7 @@ public class CarService : ICarService
 
         var mappedCar = this.mapper.Map<Car>(dto);
         await this.unitOfWork.Cars.AddAsync(mappedCar);
-        await this.unitOfWork.Cars.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<CarResultDto>(mappedCar);
     }
@@ -48,7 +48,7 @@ public class CarService : ICarService
 
         var mappedCar = this.mapper.Map(dto, existCar);
         this.unitOfWork.Cars.Update(mappedCar);
-        await this.unitOfWork.Cars.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<CarResultDto>(mappedCar);
     }
@@ -60,7 +60,7 @@ public class CarService : ICarService
             throw new NotFoundException("This car number is not found");
 
         this.unitOfWork.Cars.Delete(existCar);
-        await this.unitOfWork.Cars.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 
@@ -71,7 +71,7 @@ public class CarService : ICarService
             throw new NotFoundException("This car number is not found");
 
         this.unitOfWork.Cars.Destroy(existCar);
-        await this.unitOfWork.Cars.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 
@@ -103,7 +103,7 @@ public class CarService : ICarService
         car.Attach = createdAttachment;
 
         this.unitOfWork.Cars.Update(car);
-        await this.unitOfWork.Cars.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<CarResultDto>(car);
     }
@@ -120,7 +120,7 @@ public class CarService : ICarService
         car.AttachId = createdAttachment.Id;
         car.Attach = createdAttachment;
         this.unitOfWork.Cars.Update(car);
-        await this.unitOfWork.Cars.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<CarResultDto>(car);
     }

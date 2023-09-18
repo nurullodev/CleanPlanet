@@ -25,7 +25,4 @@ public class UserUpdateDto
 
     [DisplayName("Role")]
     public UserRole Role { get; set; }
-
-    [DisplayName("Address id")]
-    public long AddressId { get; set; }
 }

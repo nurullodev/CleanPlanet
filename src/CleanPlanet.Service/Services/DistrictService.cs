@@ -37,7 +37,7 @@ public class DistrictService : IDistrictService
         {
             var mappedDistrict = this.mapper.Map<District>(district);
             await this.unitOfWork.Districts.AddAsync(mappedDistrict);
-            await this.unitOfWork.Districts.SaveAsync();
+            await this.unitOfWork.SaveAsync();
         }
         return true;
     }

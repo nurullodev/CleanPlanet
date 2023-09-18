@@ -32,7 +32,7 @@ public class StreetService : IStreetService
         mappedStreet.DistrictId = dto.DistrictId;
         mappedStreet.District = district;
         await this.unitOfWork.Streets.AddAsync(mappedStreet);
-        await this.unitOfWork.Streets.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<StreetResultDto>(mappedStreet);
     }
@@ -54,7 +54,7 @@ public class StreetService : IStreetService
         mappedStreet.DistrictId = dto.DistrictId;
         mappedStreet.District = district;
         this.unitOfWork.Streets.Update(mappedStreet);
-        await this.unitOfWork.Streets.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<StreetResultDto>(mappedStreet);
     }
@@ -66,7 +66,7 @@ public class StreetService : IStreetService
             throw new NotFoundException("This street is not found");
 
         this.unitOfWork.Streets.Destroy(existStreet);
-        await this.unitOfWork.Streets.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 

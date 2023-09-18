@@ -35,7 +35,7 @@ public class DriverService : IDriverService
 
         var mappedDriver = this.mapper.Map<Driver>(dto);
         await this.unitOfWork.Drivers.AddAsync(mappedDriver);
-        await this.unitOfWork.Drivers.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<DriverResultDto>(mappedDriver);
     }
@@ -53,7 +53,7 @@ public class DriverService : IDriverService
         dto.Password = PasswordHash.Encrypt(dto.Password);
         var mappedDriver = this.mapper.Map(dto, existDriver);
         this.unitOfWork.Drivers.Update(mappedDriver);
-        await this.unitOfWork.Drivers.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<DriverResultDto>(mappedDriver);
     }
@@ -65,7 +65,7 @@ public class DriverService : IDriverService
             throw new NotFoundException("This driver is not found");
 
         this.unitOfWork.Drivers.Delete(existDriver);
-        await this.unitOfWork.Drivers.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 
@@ -76,7 +76,7 @@ public class DriverService : IDriverService
             throw new NotFoundException("This driver is not found");
 
         this.unitOfWork.Drivers.Destroy(existDriver);
-        await this.unitOfWork.Drivers.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 
@@ -120,7 +120,7 @@ public class DriverService : IDriverService
         existDriver.AttachId = createdAttachment.Id;
         existDriver.Attach = createdAttachment;
         this.unitOfWork.Drivers.Update(existDriver);
-        await this.unitOfWork.Drivers.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<DriverResultDto>(existDriver);
     }
@@ -137,7 +137,7 @@ public class DriverService : IDriverService
         existDriver.AttachId = createdAttachment.Id;
         existDriver.Attach = createdAttachment;
         this.unitOfWork.Drivers.Update(existDriver);
-        await this.unitOfWork.Drivers.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<DriverResultDto>(existDriver);
     }

@@ -56,4 +56,9 @@ public class UnitOfWork : IUnitOfWork
     {
         GC.SuppressFinalize(true);
     }
+
+    public async ValueTask SaveAsync()
+    {
+        await dbContext.SaveChangesAsync();
+    }
 }

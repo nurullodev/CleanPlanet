@@ -23,7 +23,4 @@ public class UserResultDto
 
     [DisplayName("Role")]
     public UserRole Role { get; set; }
-
-    [DisplayName("Address result")]
-    public AddressResultDto Address { get; set; }
 }

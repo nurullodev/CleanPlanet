@@ -45,7 +45,7 @@ public class AddressService : IAddressService
         mappedAddress.StreetId = street.Id;
 
         await this.unitOfWork.Addresses.AddAsync(mappedAddress);
-        await this.unitOfWork.Addresses.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         mappedAddress.District = district;
         mappedAddress.Country = country;
@@ -83,7 +83,7 @@ public class AddressService : IAddressService
         mappedAddress.StreetId = street.Id;
 
         this.unitOfWork.Addresses.Update(mappedAddress);
-        await this.unitOfWork.Addresses.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         mappedAddress.District = district;
         mappedAddress.Country = country;
@@ -99,7 +99,7 @@ public class AddressService : IAddressService
             throw new NotFoundException("This address is not found");
 
         this.unitOfWork.Addresses.Delete(existAddress);
-        await this.unitOfWork.Addresses.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 

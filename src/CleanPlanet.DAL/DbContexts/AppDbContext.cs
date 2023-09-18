@@ -41,11 +41,6 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Address>()
               .HasOne(t => t.Country);
 
-        modelBuilder.Entity<User>()
-              .HasOne(t => t.Address)
-              .WithMany(x => x.Users)
-              .HasForeignKey(x => x.AddressId);
-
         modelBuilder.Entity<Car>()
               .HasOne(t => t.Attach);
 

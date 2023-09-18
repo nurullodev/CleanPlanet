@@ -35,7 +35,7 @@ public class CountryService : ICountryService
         {
             var mappedCountry = this.mapper.Map<Country>(country);
             await this.unitOfWork.Countries.AddAsync(mappedCountry);
-            await this.unitOfWork.Countries.SaveAsync();
+            await this.unitOfWork.SaveAsync();
         }
         return true;
     }

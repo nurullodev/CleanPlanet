@@ -30,7 +30,7 @@ public class UserService : IUserService
         var mappedUser = this.mapper.Map<User>(dto);
         mappedUser.Password = PasswordHash.Encrypt(mappedUser.Password);
         await this.unitOfWork.Users.AddAsync(mappedUser);
-        await this.unitOfWork.Users.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<UserResultDto>(mappedUser);
     }
@@ -48,7 +48,7 @@ public class UserService : IUserService
         this.mapper.Map(dto, existUser);
         existUser.Password = PasswordHash.Encrypt(dto.Password);
         this.unitOfWork.Users.Update(existUser);
-        await this.unitOfWork.Users.SaveAsync();
+        await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<UserResultDto>(existUser);
     }
@@ -60,7 +60,7 @@ public class UserService : IUserService
             throw new NotFoundException($"This user is not found");
 
         this.unitOfWork.Users.Delete(existUser);
-        await this.unitOfWork.Users.SaveAsync();
+        await this.unitOfWork.SaveAsync();
         return true;
     }
 

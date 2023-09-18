@@ -21,4 +21,5 @@ public interface IUnitOfWork : IDisposable
     IRepository<Country> Countries { get; }
     IRepository<Region> Regions { get; }
     IRepository<Street> Streets { get; }
+    ValueTask SaveAsync();
 }
