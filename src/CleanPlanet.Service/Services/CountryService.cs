@@ -27,7 +27,7 @@ public class CountryService : ICountryService
         if (dbSource.Any())
             throw new AlreadyExistException("Countries are already exist");
 
-        string path = @"D:\Portfolio\CleanPlanet\src\CleanPlanet.Shared\Files\counties.json";
+        string path = @"..\..\..\CleanPlanet\src\CleanPlanet.Shared\Files\counties.json";
         var source = File.ReadAllText(path);
         var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
 
