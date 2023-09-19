@@ -1,12 +1,9 @@
-﻿using AutoMapper;
 using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Service.DTOs.Places.Addresses;
-using CleanPlanet.Service.DTOs.Places.Streets;
 using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.Service.Services;
 
@@ -92,7 +89,7 @@ public class AddressService : IAddressService
         return this.mapper.Map<AddressResultDto>(mappedAddress);
     }
 
-    public async ValueTask<bool> RemoveAsync(long id)
+    public ValueTask<bool> RemoveAsync(long id)
     {
         var existAddress = await this.unitOfWork.Addresses.GetAsync(a => a.Id.Equals(id));
         if (existAddress is null)
@@ -103,7 +100,7 @@ public class AddressService : IAddressService
         return true;
     }
 
-    public async ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
+    public ValueTask<IEnumerable<AddressResultDto>> RetrieveAsync(PaginationParams pagination)
     {
         var existAddress = await this.unitOfWork.Addresses.GetAsync(a => a.Id.Equals(id), includes: new[] { "District", "Region", "Country", "Street" });
         if (existAddress is null)
@@ -111,10 +108,11 @@ public class AddressService : IAddressService
         return this.mapper.Map<AddressResultDto>(existAddress);
     }
 
-    public async ValueTask<IEnumerable<AddressResultDto>> RetrieveAsync(PaginationParams pagination)
+    public ValueTask<AddressResultDto> RetrieveByIdAsync(long id)
     {
         var addresses = await this.unitOfWork.Addresses.GetAll(includes: new[] { "District","Region", "Country", "Street" }).ToListAsync();
         var result = this.mapper.Map<IEnumerable<AddressResultDto>>(addresses);
         return result;
+        throw new NotImplementedException();
     }
 }

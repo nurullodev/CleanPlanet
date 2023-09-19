@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using CleanPlanet.Domain.Entities.Addresses;
+using CleanPlanet.Domain.Entities.Attachments;
 using CleanPlanet.Domain.Entities.Cars;
 using CleanPlanet.Domain.Entities.Users;
 using CleanPlanet.Domain.Entities.Drivers;
@@ -90,3 +91,4 @@ public class AppDbContext : DbContext
         //#endregion
     }
 }
+
