@@ -86,8 +86,10 @@ public class CarService : ICarService
 
     public async ValueTask<IEnumerable<CarResultDto>> RetrieveAsync(PaginationParams pagination)
     {
-        var cars = await this.unitOfWork.Cars.GetAll(includes: new[] {"Attach"})
-                        .ToPaginate(pagination).ToListAsync();
+        var cars = await this.unitOfWork.Cars
+                        .GetAll(includes: new[] {"Attach"})
+                        .ToPaginate(pagination)
+                        .ToListAsync();
 
         return this.mapper.Map<IEnumerable<CarResultDto>>(cars);
     }
