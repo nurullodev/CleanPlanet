@@ -9,6 +9,7 @@ using CleanPlanet.Service.DTOs.Drivers;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Drivers;
 using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Domain.Enums;
 
 namespace CleanPlanet.Service.Services;
 
@@ -32,8 +33,9 @@ public class DriverService : IDriverService
 
         dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
         dto.Password = PasswordHash.Encrypt(dto.Password);
-
+       
         var mappedDriver = this.mapper.Map<Driver>(dto);
+        mappedDriver.Role = UserRole.Driver;
         await this.unitOfWork.Drivers.AddAsync(mappedDriver);
         await this.unitOfWork.SaveAsync();
 

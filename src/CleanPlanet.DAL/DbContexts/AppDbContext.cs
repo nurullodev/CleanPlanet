@@ -41,12 +41,6 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Address>()
               .HasOne(t => t.Country);
 
-        modelBuilder.Entity<Car>()
-              .HasOne(t => t.Attach);
-
-        modelBuilder.Entity<Driver>()
-              .HasOne(t => t.Attach);
-
         modelBuilder.Entity<Driver>()
               .HasOne(x => x.Car);
 

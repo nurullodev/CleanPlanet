@@ -25,4 +25,8 @@
     <ProjectReference Include="..\CleanPlanet.Service\CleanPlanet.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
 </Project>

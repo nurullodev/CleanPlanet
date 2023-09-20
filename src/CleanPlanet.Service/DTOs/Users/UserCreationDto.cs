@@ -19,7 +19,4 @@ public class UserCreationDto
 
     [DisplayName("Email")]
     public string Email { get; set; }
-
-    [DisplayName("Role")]
-    public UserRole Role { get; set; }
 }
