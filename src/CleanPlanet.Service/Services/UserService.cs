@@ -8,6 +8,7 @@ using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Extensions;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Users;
+using CleanPlanet.Domain.Enums;
 
 namespace CleanPlanet.Service.Services;
 
@@ -28,7 +29,9 @@ public class UserService : IUserService
             throw new AlreadyExistException($"This user is already exists");
 
         var mappedUser = this.mapper.Map<User>(dto);
+        mappedUser.Role = UserRole.User;
         mappedUser.Password = PasswordHash.Encrypt(mappedUser.Password);
+
         await this.unitOfWork.Users.AddAsync(mappedUser);
         await this.unitOfWork.SaveAsync();
 

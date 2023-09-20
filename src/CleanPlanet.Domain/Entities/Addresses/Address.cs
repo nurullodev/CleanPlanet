@@ -18,6 +18,4 @@ public class Address : Auditable
 
 	public long? StreetId { get; set; }
 	public Street Street { get; set; }
-
-	public ICollection<User> Users { get; set; }
 }

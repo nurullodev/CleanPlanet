@@ -29,5 +29,5 @@ public class DriverResultDto
     public CarResultDto Car { get; set; }
 
     [DisplayName("Attachment result")]
-    public AttachResultDto Attach { get; set; }
+    public AttachResultDto? Attach { get; set; }
 }

@@ -8,6 +8,7 @@ public static class Converter
     {
         using var memoryStream = new MemoryStream();
         formFile.CopyTo(memoryStream);
+        
         return memoryStream.ToArray();
     }
 }

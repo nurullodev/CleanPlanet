@@ -18,5 +18,5 @@ public class Driver : Auditable
 	public Car Car { get; set; }
 
 	public long? AttachId { get; set; }
-    public Attach? Attach { get; set; }
+    public Attach Attach { get; set; }
 }

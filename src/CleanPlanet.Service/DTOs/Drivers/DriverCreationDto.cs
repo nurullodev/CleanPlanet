@@ -20,12 +20,9 @@ public class DriverCreationDto
     [DisplayName("Password")]
     public string Password { get; set; }
 
-    [DisplayName("Role")]
-    public UserRole Role { get; set; }
-
     [DisplayName("Car id")]
     public long CarId { get; set; }
 
     [DisplayName("Attachment id")]
-    public long AttachId { get; set; }
+    public long? AttachId { get; set; }
 }
