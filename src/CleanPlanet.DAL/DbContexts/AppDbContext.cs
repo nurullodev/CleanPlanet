@@ -1,12 +1,11 @@
 using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Domain.Entities.Attachments;
 using CleanPlanet.Domain.Entities.Cars;
-using CleanPlanet.Domain.Entities.Users;
 using CleanPlanet.Domain.Entities.Drivers;
-using CleanPlanet.Domain.Entities.Addresses;
-using CleanPlanet.Domain.Entities.TrashCans;
 using CleanPlanet.Domain.Entities.Statistics;
-using CleanPlanet.Domain.Entities.Attachments;
+using CleanPlanet.Domain.Entities.TrashCans;
+using CleanPlanet.Domain.Entities.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.DAL.DbContexts;
 
