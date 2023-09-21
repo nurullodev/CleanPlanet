@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
+using CleanPlanet.Service.Helpers;
 using CleanPlanet.DAL.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using CleanPlanet.Service.Exceptions;
@@ -8,7 +9,6 @@ using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Service.DTOs.Places.Districts;
-using CleanPlanet.Service.Helpers;
 
 namespace CleanPlanet.Service.Services;
 
@@ -28,7 +28,7 @@ public class DistrictService : IDistrictService
         if (dbSource.Any())
             throw new AlreadyExistException("Districts are already exist");
 
-		string path = @"..\..\..\CleanPlanet\src\CleanPlanet.Shared\Files\districts.json";
+        string path = PathHelper.DistrictPath;
         var source = File.ReadAllText(path);
 
         var districts = JsonConvert.DeserializeObject<IEnumerable<DistrictCreationDto>>(source);

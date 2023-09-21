@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
+using CleanPlanet.Service.Helpers;
 using Microsoft.EntityFrameworkCore;
 using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Service.Exceptions;
@@ -27,7 +28,7 @@ public class RegionService : IRegionService
         if (dbSource.Any())
             throw new AlreadyExistException("Regions are already exist");
 
-        string path = @"..\..\..\CleanPlanet\src\CleanPlanet.Shared\Files\regions.json";
+        string path = PathHelper.RegionPath;
 
         var source = File.ReadAllText(path);
         var regions = JsonConvert.DeserializeObject<IEnumerable<RegionCreationDto>>(source);

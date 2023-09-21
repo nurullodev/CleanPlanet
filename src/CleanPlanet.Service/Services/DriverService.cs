@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanPlanet.Domain.Enums;
 using CleanPlanet.Service.Helpers;
 using CleanPlanet.DAL.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,6 @@ using CleanPlanet.Service.DTOs.Drivers;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Drivers;
 using CleanPlanet.Service.DTOs.Attachment;
-using CleanPlanet.Domain.Enums;
 
 namespace CleanPlanet.Service.Services;
 

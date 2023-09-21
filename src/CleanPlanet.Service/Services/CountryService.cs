@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
+using CleanPlanet.Service.Helpers;
 using Microsoft.EntityFrameworkCore;
 using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Service.Exceptions;
@@ -27,7 +28,7 @@ public class CountryService : ICountryService
         if (dbSource.Any())
             throw new AlreadyExistException("Countries are already exist");
 
-        string path = @"..\..\..\CleanPlanet\src\CleanPlanet.Shared\Files\counties.json";
+        string path = PathHelper.CountryPath;
         var source = File.ReadAllText(path);
         var countries = JsonConvert.DeserializeObject<IEnumerable<CountryCreationDto>>(source);
 

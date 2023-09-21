@@ -14,7 +14,6 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
         // Add services to the container.
 
@@ -46,6 +45,11 @@ public class Program
                 .CreateLogger();
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog(logger);
+
+        PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
+        PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:RegionsFilePath"));
+        PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:CountriesFilePath"));
+        PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:DictrictsFilePath"));
 
         var app = builder.Build();
 
