@@ -6,12 +6,10 @@ using CleanPlanet.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanPlanet.API.Controllers;
-
-public class CarsContoller : BaseController
+public class CarsController : BaseController
 {
-    
     private readonly ICarService carService;
-    public CarsContoller(ICarService carService)
+    public CarsController(ICarService carService)
     {
         this.carService = carService;
     }
@@ -54,7 +52,11 @@ public class CarsContoller : BaseController
             Data = await this.carService.DestroyAsync(id)
         });
 
-
+    /// <summary>
+    /// Get car details based on ID parameter
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("get/id:{long}")]
     public async Task<IActionResult> GetAsync(long id)
         => Ok(new Response

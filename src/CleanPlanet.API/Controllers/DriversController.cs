@@ -78,7 +78,7 @@ public class DriversController : BaseController
 
 
     [HttpGet("get-all")]
-    public async Task<IActionResult> GetAllAsync(PaginationParams pagination)
+    public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams pagination)
        => Ok(new Response
        {
            StatusCode = 200,

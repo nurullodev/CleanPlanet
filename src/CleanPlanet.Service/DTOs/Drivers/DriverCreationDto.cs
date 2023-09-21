@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using CleanPlanet.Domain.Enums;
 
 namespace CleanPlanet.Service.DTOs.Drivers;
 
@@ -22,7 +21,4 @@ public class DriverCreationDto
 
     [DisplayName("Car id")]
     public long CarId { get; set; }
-
-    [DisplayName("Attachment id")]
-    public long? AttachId { get; set; }
 }

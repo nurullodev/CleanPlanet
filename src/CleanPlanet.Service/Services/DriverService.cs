@@ -30,7 +30,7 @@ public class DriverService : IDriverService
         var driver = await this.unitOfWork.Drivers.GetAsync(d => d.Phone.Equals(dto.Phone));
         if (driver is not null)
             throw new AlreadyExistException("This driver is already exist");
-
+        
         dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
         dto.Password = PasswordHash.Encrypt(dto.Password);
        

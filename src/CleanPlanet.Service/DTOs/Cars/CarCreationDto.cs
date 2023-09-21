@@ -12,7 +12,4 @@ public class CarCreationDto
 
     [DisplayName("Qunatity of the trash can")]
     public int QunatityTrashCan { get; set; }
-
-    [DisplayName("Attachment id")]
-    public long AttachId { get; set; }
 }

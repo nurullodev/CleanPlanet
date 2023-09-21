@@ -1,6 +1,8 @@
 using CleanPlanet.API.Extentions;
 using CleanPlanet.API.Middlewares;
 using CleanPlanet.DAL.DbContexts;
+using CleanPlanet.Service.Helpers;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -11,6 +13,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
         // Add services to the container.
 
@@ -30,6 +34,11 @@ public class Program
         builder.Services.AddJwt(builder.Configuration);
         builder.Services.ConfigureSwagger();
 
+        builder.Services.AddControllers(options =>
+        {
+            options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+        });
+
         // Logger
         var logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
@@ -46,6 +55,7 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
         app.UseAuthentication();
 
         app.UseHttpsRedirection();
