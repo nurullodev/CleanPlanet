@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using CleanPlanet.Service.DTOs.Users;
 using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Domain.Configurations;
+using CleanPlanet.Domain.Enums;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CleanPlanet.API.Controllers;
 
@@ -61,5 +63,13 @@ public class UsersController : BaseController
             StatusCode = 200,
             Message = "Success",
             Data = await this.userService.RetrieveAsync(pagination)
+        });
+
+    public async ValueTask<IActionResult> UpgradeRoleAsync(long id, UserRole role)
+        => Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await this.userService.UpgradeRoleAsync(id, role)
         });
 }

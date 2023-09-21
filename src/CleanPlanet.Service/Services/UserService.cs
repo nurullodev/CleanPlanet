@@ -95,4 +95,16 @@ public class UserService : IUserService
         var result = this.mapper.Map<IEnumerable<UserResultDto>>(users);
         return result;
     }
+
+    public async ValueTask<UserResultDto> UpgradeRoleAsync(long id, UserRole role)
+    {
+        var user = await this.unitOfWork.Users.GetAsync(u => u.Id.Equals(id));
+        if (user is null)
+            throw new NotFoundException("This user is not found");
+
+        this.unitOfWork.Users.Update(user);
+        await this.unitOfWork.SaveAsync();
+
+        return this.mapper.Map<UserResultDto>(user);
+    }
 }

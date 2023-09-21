@@ -66,17 +66,6 @@ public class DriversController : BaseController
             Data = await this.driverService.RetrieveByIdAsync(id)
         });
 
-
-    [HttpGet("login/phone & password")]
-    public async Task<IActionResult> GetAsync(string phone, string password)
-        => Ok(new Response
-        {
-            StatusCode = 200,
-            Message = "Success",
-            Data = await this.driverService.RetrieveByEmailAndPasswordAsync(phone, password)
-        });
-
-
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams pagination)
        => Ok(new Response

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using CleanPlanet.Domain.Enums;
-using CleanPlanet.Service.Helpers;
 using CleanPlanet.DAL.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using CleanPlanet.Service.Exceptions;
@@ -27,18 +25,15 @@ public class DriverService : IDriverService
 
     public async ValueTask<DriverResultDto> CreateAsync(DriverCreationDto dto)
     {
-        var driver = await this.unitOfWork.Drivers.GetAsync(d => d.Phone.Equals(dto.Phone));
-        if (driver is not null)
-            throw new AlreadyExistException("This driver is already exist");
+        var user = await this.unitOfWork.Drivers.GetAsync(d => d.UserId.Equals(dto.UserId));
+        if (user is not null)
+            throw new AlreadyExistException("This user is already exist");
+
         var car = await this.unitOfWork.Cars.GetAsync(c => c.Id.Equals(dto.CarId));
         if (car is null)
             throw new NotFoundException("This car is not found");
 
-        dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
-        dto.Password = PasswordHash.Encrypt(dto.Password);
-       
         var mappedDriver = this.mapper.Map<Driver>(dto);
-        mappedDriver.Role = UserRole.Driver;
         mappedDriver.Car = car;
         await this.unitOfWork.Drivers.AddAsync(mappedDriver);
         await this.unitOfWork.SaveAsync();
@@ -51,18 +46,10 @@ public class DriverService : IDriverService
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(dto.Id));
         if (existDriver is null)
             throw new NotFoundException("This driver is not found");
-        var driver = await this.unitOfWork.Drivers
-                    .GetAsync(d => d.Phone.Equals(dto.Phone) && !d.Id.Equals(existDriver.Id));
-        
-        if (driver is not null)
-            throw new AlreadyExistException("This driver is already exist");
 
         var car = await this.unitOfWork.Cars.GetAsync(c => c.Id.Equals(dto.CarId));
         if (car is null)
             throw new NotFoundException("This car is not found");
-
-        dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
-        dto.Password = PasswordHash.Encrypt(dto.Password);
 
         var mappedDriver = this.mapper.Map(dto, existDriver);
         mappedDriver.Car = car;
@@ -103,18 +90,6 @@ public class DriverService : IDriverService
         return this.mapper.Map<DriverResultDto>(existDriver);
     }
 
-    public async ValueTask<DriverResultDto> RetrieveByEmailAndPasswordAsync(string phone, string password)
-    {
-        var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Phone.Equals(phone), includes: new[] { "Attach", "Car" });
-        if (existDriver is null)
-            throw new NotFoundException("This driver  is not found");
-
-        bool checkPassword = PasswordHash.Verify(existDriver.Password, password);
-        if (!checkPassword)
-            throw new InvalidPasswordException("This driver password is invalid");
-
-        return this.mapper.Map<DriverResultDto>(existDriver);
-    }
 
     public async ValueTask<IEnumerable<DriverResultDto>> RetrieveAsync(PaginationParams pagination)
     {
