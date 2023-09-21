@@ -30,12 +30,16 @@ public class DriverService : IDriverService
         var driver = await this.unitOfWork.Drivers.GetAsync(d => d.Phone.Equals(dto.Phone));
         if (driver is not null)
             throw new AlreadyExistException("This driver is already exist");
-        
+        var car = await this.unitOfWork.Cars.GetAsync(c => c.Id.Equals(dto.CarId));
+        if (car is null)
+            throw new NotFoundException("This car is not found");
+
         dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
         dto.Password = PasswordHash.Encrypt(dto.Password);
        
         var mappedDriver = this.mapper.Map<Driver>(dto);
         mappedDriver.Role = UserRole.Driver;
+        mappedDriver.Car = car;
         await this.unitOfWork.Drivers.AddAsync(mappedDriver);
         await this.unitOfWork.SaveAsync();
 
@@ -47,13 +51,21 @@ public class DriverService : IDriverService
         var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(dto.Id));
         if (existDriver is null)
             throw new NotFoundException("This driver is not found");
-
-        if (existDriver.Phone.Equals(dto.Phone))
+        var driver = await this.unitOfWork.Drivers
+                    .GetAsync(d => d.Phone.Equals(dto.Phone) && !d.Id.Equals(existDriver.Id));
+        
+        if (driver is not null)
             throw new AlreadyExistException("This driver is already exist");
+
+        var car = await this.unitOfWork.Cars.GetAsync(c => c.Id.Equals(dto.CarId));
+        if (car is null)
+            throw new NotFoundException("This car is not found");
 
         dto.DateOfBirth = dto.DateOfBirth.ToUniversalTime();
         dto.Password = PasswordHash.Encrypt(dto.Password);
+
         var mappedDriver = this.mapper.Map(dto, existDriver);
+        mappedDriver.Car = car;
         this.unitOfWork.Drivers.Update(mappedDriver);
         await this.unitOfWork.SaveAsync();
 
@@ -62,7 +74,7 @@ public class DriverService : IDriverService
 
     public async ValueTask<bool> RemoveAsync(long id)
     {
-        var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(id));
+        var existDriver = await this.unitOfWork.Drivers.GetAsync(d => d.Id.Equals(id), includes: new[] { "Attach", "Car" });
         if (existDriver is null)
             throw new NotFoundException("This driver is not found");
 
