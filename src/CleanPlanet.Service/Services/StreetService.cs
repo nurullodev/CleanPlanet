@@ -43,7 +43,8 @@ public class StreetService : IStreetService
         if (existStreet is null)
             throw new NotFoundException("This street is not found");
 
-        if (existStreet.Name.Equals(dto.Name))
+        var street = await this.unitOfWork.Streets.GetAsync(s => s.Name.Equals(dto.Name) && !s.Id.Equals(existStreet.Id));
+        if (street is not null)
             throw new AlreadyExistException("This street is already exist");
 
         var district = await this.unitOfWork.Districts.GetAsync(r => r.Id.Equals(dto.DistrictId));

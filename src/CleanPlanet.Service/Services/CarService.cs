@@ -42,7 +42,7 @@ public class CarService : ICarService
         if (existCar is null)
             throw new NotFoundException("This car is not found");
 
-        var checkCar = await this.unitOfWork.Cars.GetAsync(c => c.Number.Equals(dto.Number));
+        var checkCar = await this.unitOfWork.Cars.GetAsync(c => c.Number.Equals(dto.Number) && !c.Id.Equals(existCar.Id));
         if (checkCar is not null)
             throw new AlreadyExistException("This car is already exist");
 
