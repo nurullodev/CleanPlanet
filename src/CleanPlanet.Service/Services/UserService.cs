@@ -24,6 +24,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> CreateAsync(UserCreationDto dto)
     {
+        var isValid = CheckPhoneNumber.IsValid(dto.Phone);
         var existUser = await this.unitOfWork.Users.GetAsync(u => u.Phone.Equals(dto.Phone));
         if (existUser is not null)
             throw new AlreadyExistException($"This user is already exists");
@@ -40,6 +41,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto)
     {
+        var isValid = CheckPhoneNumber.IsValid(dto.Phone);
         var existUser = await this.unitOfWork.Users.GetAsync(u => u.Id.Equals(dto.Id));
         if (existUser is null)
             throw new NotFoundException($"This user is not found");
