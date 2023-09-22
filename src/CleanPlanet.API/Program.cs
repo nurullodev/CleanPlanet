@@ -51,6 +51,13 @@ public class Program
         PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:CountriesFilePath"));
         PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:DictrictsFilePath"));
 
+
+        //builder.Services.AddAuthorization(options =>
+        //{
+        //    options.AddPolicy("RequireAdministratorRole",
+        //         policy => policy.RequireRole("Administrator"));
+        //});
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

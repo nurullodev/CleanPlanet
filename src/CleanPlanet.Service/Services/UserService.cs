@@ -104,6 +104,7 @@ public class UserService : IUserService
         if (user is null)
             throw new NotFoundException("This user is not found");
 
+        user.Role = role;
         this.unitOfWork.Users.Update(user);
         await this.unitOfWork.SaveAsync();
 

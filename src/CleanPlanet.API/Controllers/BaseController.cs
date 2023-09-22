@@ -6,6 +6,6 @@ namespace CleanPlanet.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin")]
+//[Authorize(Roles = "Admin")]
 public class BaseController : ControllerBase
 { }
