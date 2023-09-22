@@ -1,11 +1,11 @@
-using CleanPlanet.Domain.Entities.Addresses;
-using CleanPlanet.Domain.Entities.Attachments;
-using CleanPlanet.Domain.Entities.Cars;
-using CleanPlanet.Domain.Entities.Drivers;
-using CleanPlanet.Domain.Entities.Statistics;
-using CleanPlanet.Domain.Entities.TrashCans;
-using CleanPlanet.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
+using CleanPlanet.Domain.Entities.Cars;
+using CleanPlanet.Domain.Entities.Users;
+using CleanPlanet.Domain.Entities.Drivers;
+using CleanPlanet.Domain.Entities.TrashCans;
+using CleanPlanet.Domain.Entities.Addresses;
+using CleanPlanet.Domain.Entities.Statistics;
+using CleanPlanet.Domain.Entities.Attachments;
 
 namespace CleanPlanet.DAL.DbContexts;
 
@@ -30,58 +30,52 @@ public class AppDbContext : DbContext
     {
         #region Fluent API
         modelBuilder.Entity<Address>()
-              .HasOne(t => t.Street);
+              .HasOne(t => t.Street)
+              .WithMany()
+              .HasForeignKey(t => t.StreetId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Address>()
-              .HasOne(t => t.District);
+              .HasOne(t => t.District)
+              .WithMany()
+              .HasForeignKey(t => t.DistrictId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Address>()
-              .HasOne(t => t.Street);
+              .HasOne(t => t.Street)
+              .WithMany()
+              .HasForeignKey(t => t.StreetId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Address>()
-              .HasOne(t => t.Country);
+              .HasOne(t => t.Country)
+              .WithMany()
+              .HasForeignKey(t => t.CountryId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Driver>()
-              .HasOne(x => x.Car);
+              .HasOne(x => x.Car)
+              .WithMany()
+              .HasForeignKey(t => t.CarId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<TrashCan>()
-              .HasOne(t => t.Address);
+              .HasOne(t => t.Address)
+              .WithMany()
+              .HasForeignKey(t => t.AddressId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<TrashCan>()
-              .HasOne(t => t.Car);
+              .HasOne(t => t.Car)
+              .WithMany()
+              .HasForeignKey(t => t.CarId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Statistic>()
-              .HasOne(t => t.Address);
+              .HasOne(t => t.Address)
+              .WithMany()
+              .HasForeignKey(t => t.AddressId)
+        .OnDelete(DeleteBehavior.NoAction);
         #endregion
-
-        //#region Seet Data
-        //modelBuilder.Entity<User>()
-        //  .HasData(new User { Id = 1, FirstName = "Nurullo", LastName = "Mansurjon", Email = "mansurjon@gmail.com", Phone = "+998942240816", Role = Domain.Enums.UserRole.User, AddressId = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = null, Password = "1234" });
-
-        //modelBuilder.Entity<Address>()
-        //  .HasData(new Address { Id = 1, DistrictId = 182, StreetId = 1, RegionId = 12, QuantityOfCar = 10, CountryId = 233, CreatedAt = DateTime.UtcNow });
-
-        //modelBuilder.Entity<District>()
-        //  .HasData(new District { Id = 182, CreatedAt = DateTime.UtcNow, RegionId = 12, Name = "Uchkoprik tumani", UpdatedAt = null });
-
-        //modelBuilder.Entity<Country>()
-        //  .HasData(new Country { Id = 233, CountryCode = "UZ", Name = "Uzbekistan", CreatedAt = DateTime.UtcNow, UpdatedAt = null });
-
-        //modelBuilder.Entity<Region>()
-        //  .HasData(new Region { Id = 12, CountryId = 233, Name = "Fargona viloyati",CreatedAt = DateTime.UtcNow, UpdatedAt = null });
-
-        //modelBuilder.Entity<Attach>()
-        //  .HasData(new Attach { Id = 1, FileName = "City", FilePath = @"" });
-
-        //modelBuilder.Entity<Car>()
-        //  .HasData(new Car { Id = 1, AttachId = 1, Number = "777ZZZ", QunatityTrashCan = 20, Type = "ISUZU", CreatedAt = DateTime.UtcNow, UpdatedAt = null });
-
-        //modelBuilder.Entity<Driver>()
-        //  .HasData(new Driver { Id = 1, AttachId = 1, CarId = 1, FirstName = "Bekzod", LastName = "Xokimov", Password = "xokimov", Phone = "+998908976789", Role = Domain.Enums.UserRole.Driver, DateOfBirth = new DateTimeOffset(new DateTime(1992, 02, 02)).UtcDateTime, CreatedAt = DateTime.UtcNow, UpdatedAt = null});
-
-        //modelBuilder.Entity<TrashCan>()
-        //  .HasData(new TrashCan { Id = 1, CarId = 1, DueData = new DateTimeOffset(new DateTime(2023, 12, 12)).UtcDateTime, AddressId = 1, CreatedAt = DateTime.UtcNow,UpdatedAt = null});
-        //#endregion
     }
 }
-

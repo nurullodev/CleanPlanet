@@ -52,11 +52,6 @@ public class CarsController : BaseController
             Data = await this.carService.DestroyAsync(id)
         });
 
-    /// <summary>
-    /// Get car details based on ID parameter
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
     [HttpGet("get/id:{long}")]
     public async Task<IActionResult> GetAsync(long id)
         => Ok(new Response
