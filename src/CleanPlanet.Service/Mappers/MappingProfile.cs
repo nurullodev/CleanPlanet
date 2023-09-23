@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using CleanPlanet.Domain.Entities.Addresses;
-using CleanPlanet.Domain.Entities.Attachments;
+using CleanPlanet.Domain.Entities.Attachs;
 using CleanPlanet.Domain.Entities.Cars;
 using CleanPlanet.Domain.Entities.Drivers;
 using CleanPlanet.Domain.Entities.Statistics;
 using CleanPlanet.Domain.Entities.TrashCans;
 using CleanPlanet.Domain.Entities.Users;
 using CleanPlanet.Service.DTOs.Addresses.Countries;
-using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Service.DTOs.Attachs;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.DTOs.Drivers;
 using CleanPlanet.Service.DTOs.Places.Addresses;

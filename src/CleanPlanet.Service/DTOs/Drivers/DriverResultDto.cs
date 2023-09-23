@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.DTOs.Users;
-using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Service.DTOs.Attachs;
 
 namespace CleanPlanet.Service.DTOs.Drivers;
 

@@ -6,8 +6,8 @@ using CleanPlanet.Service.Exceptions;
 using CleanPlanet.Service.Extensions;
 using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Domain.Entities.Cars;
+using CleanPlanet.Service.DTOs.Attachs;
 using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Service.DTOs.Attachment;
 
 namespace CleanPlanet.Service.Services;
 

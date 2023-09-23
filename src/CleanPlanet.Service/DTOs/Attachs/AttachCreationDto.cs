@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace CleanPlanet.Service.DTOs.Attachment;
+namespace CleanPlanet.Service.DTOs.Attachs;
 
 public class AttachCreationDto
 {

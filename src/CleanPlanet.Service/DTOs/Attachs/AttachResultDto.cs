@@ -1,4 +1,4 @@
-﻿namespace CleanPlanet.Service.DTOs.Attachment;
+﻿namespace CleanPlanet.Service.DTOs.Attachs;
 
 public class AttachResultDto
 {

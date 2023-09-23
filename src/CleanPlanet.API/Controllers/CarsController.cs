@@ -1,6 +1,6 @@
 ﻿using CleanPlanet.API.Models;
 using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Service.DTOs.Attachs;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
