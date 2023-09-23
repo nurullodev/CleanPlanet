@@ -1,6 +1,7 @@
 ﻿using CleanPlanet.API.Models;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanPlanet.API.Controllers;
@@ -14,6 +15,7 @@ public class CountriesController : BaseController
     }
 
     [HttpPost("set")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async Task<IActionResult> PostAsync()
         => Ok(new Response
         {

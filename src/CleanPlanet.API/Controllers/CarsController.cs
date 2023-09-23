@@ -3,6 +3,7 @@ using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Service.DTOs.Attachment;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanPlanet.API.Controllers;
@@ -15,6 +16,7 @@ public class CarsController : BaseController
     }
 
     [HttpPost("create")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> PostAsync(CarCreationDto dto)
         => Ok(new Response
         {
@@ -25,6 +27,7 @@ public class CarsController : BaseController
 
 
     [HttpPatch("update")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> PatchAsync(CarUpdateDto dto)
         => Ok(new Response
         {
@@ -35,6 +38,7 @@ public class CarsController : BaseController
 
 
     [HttpDelete("delete/{id:long}")]
+    [Authorize(Roles = "Admin, Driver")]
     public async ValueTask<IActionResult> DeleteAsync(long id)
         => Ok(new Response
         {
@@ -44,6 +48,7 @@ public class CarsController : BaseController
         });
 
     [HttpDelete("destroy/{id:long}")]
+    [Authorize(Roles = "Admin")]
     public async ValueTask<IActionResult> DestroyAsync(long id)
         => Ok(new Response
         {
@@ -53,6 +58,7 @@ public class CarsController : BaseController
         });
 
     [HttpGet("get/id:{long}")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> GetAsync(long id)
         => Ok(new Response
         {
@@ -63,6 +69,7 @@ public class CarsController : BaseController
 
 
     [HttpGet("get-all")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> GetAllAsync([FromQuery]  PaginationParams pagination)
        => Ok(new Response
        {
@@ -73,6 +80,7 @@ public class CarsController : BaseController
 
 
     [HttpPost("image-upload")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> ImageUploadAsync(long driverId, [FromForm] AttachCreationDto dto)
         => Ok(new Response
         {
@@ -83,6 +91,7 @@ public class CarsController : BaseController
 
 
     [HttpPost("update-image")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> UpdateImageAsync(long driverId, [FromForm] AttachCreationDto dto)
         => Ok(new Response
         {
