@@ -1,6 +1,6 @@
 # CleanPlanet
 
-CleanPlanet is a community-driven environmental project aimed at making our planet a cleaner and more sustainable place to live. This repository serves as the central hub for our project, where you can find information about our mission, how to contribute, and the latest updates.
+CleanPlanet is a community-driven environmental project aimed at making our planet a cleaner and more sustainable place to live. 
 
 ## Table of Contents
 
