@@ -1,6 +1,7 @@
 ﻿using CleanPlanet.API.Models;
 using CleanPlanet.Service.DTOs.Places.Streets;
 using CleanPlanet.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanPlanet.API.Controllers;
@@ -14,6 +15,7 @@ public class StreetController : BaseController
     }
 
     [HttpPost("create")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> PostAsync(StreetCreationDto dto)
         => Ok(new Response
         {
@@ -24,6 +26,7 @@ public class StreetController : BaseController
 
 
     [HttpPut("update")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> PutAsync(StreetUpdateDto dto)
         => Ok(new Response
         {
@@ -34,6 +37,7 @@ public class StreetController : BaseController
 
 
     [HttpDelete("delete/{id:long}")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> DeleteAsync(long id)
         => Ok(new Response
         {

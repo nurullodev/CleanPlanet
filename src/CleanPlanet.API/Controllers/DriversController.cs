@@ -1,10 +1,10 @@
 ﻿using CleanPlanet.API.Models;
-using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Domain.Entities.Drivers;
-using CleanPlanet.Service.DTOs.Attachment;
-using CleanPlanet.Service.DTOs.Drivers;
-using CleanPlanet.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using CleanPlanet.Service.Interfaces;
+using CleanPlanet.Service.DTOs.Drivers;
+using CleanPlanet.Domain.Configurations;
+using Microsoft.AspNetCore.Authorization;
+using CleanPlanet.Service.DTOs.Attachment;
 
 namespace CleanPlanet.API.Controllers;
 
@@ -18,6 +18,7 @@ public class DriversController : BaseController
     }
 
     [HttpPost("create")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> PostAsync(DriverCreationDto dto)
         => Ok(new Response
         {
@@ -28,6 +29,7 @@ public class DriversController : BaseController
 
 
     [HttpPut("update")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> PutAsync(DriverUpdateDto dto)
         => Ok(new Response
         {
@@ -38,6 +40,7 @@ public class DriversController : BaseController
 
 
     [HttpDelete("delete")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> DeleteAsync(long id)
         => Ok(new Response
         {
@@ -48,6 +51,7 @@ public class DriversController : BaseController
 
 
     [HttpDelete("destroy")]
+    [Authorize(Roles = "SuberAdmin")]
     public async Task<IActionResult> DestroyAsync(long id)
         => Ok(new Response
         {
@@ -58,6 +62,7 @@ public class DriversController : BaseController
 
 
     [HttpGet("get/id:{long}")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> GetAsync(long id)
         => Ok(new Response
         {
@@ -67,6 +72,7 @@ public class DriversController : BaseController
         });
 
     [HttpGet("get-all")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams pagination)
        => Ok(new Response
        {
@@ -76,6 +82,7 @@ public class DriversController : BaseController
        });
 
     [HttpPost("image-upload")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> ImageUploadAsync(long driverId, [FromForm] AttachCreationDto dto)
         => Ok(new Response
         {
@@ -86,6 +93,7 @@ public class DriversController : BaseController
 
 
     [HttpPost("update-image")]
+    [Authorize(Roles = "SuberAdmin, Admin, Driver")]
     public async Task<IActionResult> UpdateImageAsync(long driverId, [FromForm] AttachCreationDto dto)
         => Ok(new Response
         {

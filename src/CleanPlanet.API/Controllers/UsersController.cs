@@ -1,10 +1,10 @@
 ﻿using CleanPlanet.API.Models;
-using Microsoft.AspNetCore.Mvc;
-using CleanPlanet.Service.DTOs.Users;
-using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Enums;
-using Microsoft.AspNetCore.Http.HttpResults;
+using CleanPlanet.Service.DTOs.Users;
+using CleanPlanet.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CleanPlanet.API.Controllers;
 
@@ -57,6 +57,7 @@ public class UsersController : BaseController
         });
 
     [HttpGet("get-all")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> GetAllAsync([FromQuery] PaginationParams pagination)
         => Ok(new Response
         {
@@ -66,6 +67,7 @@ public class UsersController : BaseController
         });
 
     [HttpPost]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> UpgradeRoleAsync(long id, UserRole role)
         => Ok(new Response
         {

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Service.DTOs.Places.Addresses;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CleanPlanet.API.Controllers;
 
@@ -15,6 +17,7 @@ public class AddressesController : BaseController
     }
 
     [HttpPost("create")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> PostAsync(AddressCreationDto dto)
         => Ok(new Response
         {
@@ -25,6 +28,7 @@ public class AddressesController : BaseController
 
 
     [HttpPut("update")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> PutAsync(AddressUpdateDto dto)
         => Ok(new Response
         {
@@ -35,6 +39,7 @@ public class AddressesController : BaseController
 
 
     [HttpDelete("delete/{id:long}")]
+    [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> DeleteAsync(long id)
         => Ok(new Response
         {

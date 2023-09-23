@@ -16,17 +16,12 @@ public class StatisticService : IStatisticService
         this.mapper = mapper;
     }
 
-    public ValueTask<StatisticResultDto> CreateAsync(StatisticCreationDto dto)
+    public ValueTask<StatisticResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }
 
     public ValueTask<IEnumerable<StatisticResultDto>> RetrieveAsync(PaginationParams pagination)
-    {
-        throw new NotImplementedException();
-    }
-
-    public ValueTask<StatisticResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }
