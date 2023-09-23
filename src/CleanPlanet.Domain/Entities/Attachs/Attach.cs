@@ -1,6 +1,6 @@
 ﻿using CleanPlanet.Domain.Commons;
 
-namespace CleanPlanet.Domain.Entities.Attachments;
+namespace CleanPlanet.Domain.Entities.Attachs;
 
 public class Attach : Auditable
 {

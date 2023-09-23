@@ -1,5 +1,5 @@
-﻿using CleanPlanet.Domain.Entities.Attachments;
-using CleanPlanet.Service.DTOs.Attachment;
+﻿using CleanPlanet.Service.DTOs.Attachs;
+using CleanPlanet.Domain.Entities.Attachs;
 
 namespace CleanPlanet.Service.Interfaces;
 

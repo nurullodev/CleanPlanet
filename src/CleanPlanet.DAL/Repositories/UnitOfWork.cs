@@ -1,9 +1,10 @@
 ﻿using CleanPlanet.DAL.DbContexts;
 using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Domain.Entities.Addresses;
-using CleanPlanet.Domain.Entities.Attachments;
+using CleanPlanet.Domain.Entities.Attachs;
 using CleanPlanet.Domain.Entities.Cars;
 using CleanPlanet.Domain.Entities.Drivers;
+using CleanPlanet.Domain.Entities.Messages;
 using CleanPlanet.Domain.Entities.Statistics;
 using CleanPlanet.Domain.Entities.TrashCans;
 using CleanPlanet.Domain.Entities.Users;
@@ -28,6 +29,7 @@ public class UnitOfWork : IUnitOfWork
         Countries = new Repository<Country>(dbContext);
         Regions = new Repository<Region>(dbContext);
         Streets = new Repository<Street>(dbContext);
+        Messages = new Repository<Message>(dbContext);  
     }
 
     public IRepository<User> Users { get; }
@@ -51,6 +53,8 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<Region> Regions { get; }
 
     public IRepository<Street> Streets { get; }
+
+    public IRepository<Message> Messages { get; }
 
     public void Dispose()
     {

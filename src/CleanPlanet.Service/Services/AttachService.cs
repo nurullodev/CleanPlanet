@@ -2,8 +2,8 @@
 using CleanPlanet.DAL.IRepositories;
 using CleanPlanet.Service.Extensions;
 using CleanPlanet.Service.Interfaces;
-using CleanPlanet.Service.DTOs.Attachment;
-using CleanPlanet.Domain.Entities.Attachments;
+using CleanPlanet.Service.DTOs.Attachs;
+using CleanPlanet.Domain.Entities.Attachs;
 
 namespace CleanPlanet.Service.Services;
 
@@ -29,16 +29,16 @@ public class AttachService : IAttachService
         var fileStream = new FileStream(filePath, FileMode.OpenOrCreate);
         await fileStream.WriteAsync(dto.FormFile.ToByte());
 
-        var attachment = new Attach()
+        var attach = new Attach()
         {
             FileName = fileName,
             FilePath = filePath,
         };
 
-        await unitOfWork.Attachments.AddAsync(attachment);
+        await unitOfWork.Attachments.AddAsync(attach);
         await unitOfWork.SaveAsync();
 
-        return attachment;
+        return attach;
     }
 
     public async Task<bool> RemoveAsync(Attach attachment)

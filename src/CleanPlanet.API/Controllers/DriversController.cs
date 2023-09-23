@@ -4,7 +4,7 @@ using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Service.DTOs.Drivers;
 using CleanPlanet.Domain.Configurations;
 using Microsoft.AspNetCore.Authorization;
-using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Service.DTOs.Attachs;
 
 namespace CleanPlanet.API.Controllers;
 

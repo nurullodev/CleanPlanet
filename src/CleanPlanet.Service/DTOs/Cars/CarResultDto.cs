@@ -1,5 +1,5 @@
 ﻿using CleanPlanet.Domain.Enums;
-using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Service.DTOs.Attachs;
 using System.ComponentModel;
 
 namespace CleanPlanet.Service.DTOs.Cars;

@@ -1,6 +1,6 @@
 ﻿using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Service.DTOs.Attachment;
+using CleanPlanet.Service.DTOs.Attachs;
 
 namespace CleanPlanet.Service.Interfaces;
 

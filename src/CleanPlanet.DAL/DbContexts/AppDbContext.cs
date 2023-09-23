@@ -2,10 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using CleanPlanet.Domain.Entities.Cars;
 using CleanPlanet.Domain.Entities.Users;
 using CleanPlanet.Domain.Entities.Drivers;
+using CleanPlanet.Domain.Entities.Attachs;
 using CleanPlanet.Domain.Entities.TrashCans;
 using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Domain.Entities.Statistics;
-using CleanPlanet.Domain.Entities.Attachments;
+using CleanPlanet.Domain.Entities.Messages;
 
 namespace CleanPlanet.DAL.DbContexts;
 
@@ -25,6 +26,7 @@ public class AppDbContext : DbContext
     public DbSet<Country> Countries { get; set; }
     public DbSet<Region> Regions { get; set; }
     public DbSet<Street> Streets { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
