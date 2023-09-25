@@ -22,8 +22,7 @@ public class AttachService : IAttachService
         if (!Directory.Exists(webRootPath))
             Directory.CreateDirectory(webRootPath);
 
-        var fileExtention = Path.GetExtension(dto.FormFile.FileName);
-        var fileName = $"{Guid.NewGuid().ToString("N")}{fileExtention}";
+        var fileName = MediaHelper.MakeImageName(dto.FormFile.FileName);
         var filePath = Path.Combine(webRootPath, fileName);
 
         var fileStream = new FileStream(filePath, FileMode.OpenOrCreate);
@@ -35,7 +34,7 @@ public class AttachService : IAttachService
             FilePath = filePath,
         };
 
-        await unitOfWork.Attachments.AddAsync(attach);
+        await unitOfWork.Attachs.AddAsync(attach);
         await unitOfWork.SaveAsync();
 
         return attach;
@@ -46,12 +45,12 @@ public class AttachService : IAttachService
         if (attachment is null)
             return false;
 
-        var existAttachment = await unitOfWork.Attachments.GetAsync(a => a.Id.Equals(attachment.Id));
+        var existAttachment = await unitOfWork.Attachs.GetAsync(a => a.Id.Equals(attachment.Id));
 
         if (existAttachment is null)
             return false;
 
-        unitOfWork.Attachments.Delete(attachment);
+        unitOfWork.Attachs.Delete(attachment);
         await unitOfWork.SaveAsync();
 
         return true;

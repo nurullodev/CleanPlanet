@@ -1,5 +1,4 @@
 ﻿using CleanPlanet.Domain.Enums;
-using CleanPlanet.Service.DTOs.Places.Addresses;
 using System.ComponentModel;
 
 namespace CleanPlanet.Service.DTOs.Users;

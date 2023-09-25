@@ -30,6 +30,19 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //Filder for IsDelete
+        modelBuilder.Entity<Car>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<Region>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<Street>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<Attach>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<Driver>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<Address>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<Message>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<Country>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<District>().HasQueryFilter(u => !u.IsDelete);
+        modelBuilder.Entity<TrashCan>().HasQueryFilter(u => !u.IsDelete);
+
         #region Fluent API
         modelBuilder.Entity<Address>()
               .HasOne(t => t.Street)
