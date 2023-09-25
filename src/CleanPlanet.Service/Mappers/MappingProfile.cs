@@ -3,6 +3,7 @@ using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Domain.Entities.Attachs;
 using CleanPlanet.Domain.Entities.Cars;
 using CleanPlanet.Domain.Entities.Drivers;
+using CleanPlanet.Domain.Entities.Messages;
 using CleanPlanet.Domain.Entities.Statistics;
 using CleanPlanet.Domain.Entities.TrashCans;
 using CleanPlanet.Domain.Entities.Users;
@@ -10,6 +11,7 @@ using CleanPlanet.Service.DTOs.Addresses.Countries;
 using CleanPlanet.Service.DTOs.Attachs;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.DTOs.Drivers;
+using CleanPlanet.Service.DTOs.Messages;
 using CleanPlanet.Service.DTOs.Places.Addresses;
 using CleanPlanet.Service.DTOs.Places.Districts;
 using CleanPlanet.Service.DTOs.Places.Regions;
@@ -72,5 +74,10 @@ public class MappingProfile : Profile
         CreateMap<TrashCan, TrashCanUpdateDto>().ReverseMap();
         CreateMap<TrashCan, TrashCanResultDto>().ReverseMap();
         CreateMap<TrashCan, TrashCanCreationDto>().ReverseMap();
+
+        //Message 
+        CreateMap<Message, MessageUpdateDto>().ReverseMap();
+        CreateMap<Message, MessageResultDto>().ReverseMap();
+        CreateMap<Message, MessageCreationDto>().ReverseMap();
     }
 }
