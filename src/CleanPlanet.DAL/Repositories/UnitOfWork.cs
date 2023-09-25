@@ -23,7 +23,7 @@ public class UnitOfWork : IUnitOfWork
         Cars = new Repository<Car>(dbContext);
         Drivers = new Repository<Driver>(dbContext);
         Statistics = new Repository<Statistic>(dbContext);
-        Attachments = new Repository<Attach>(dbContext);
+        Attachs = new Repository<Attach>(dbContext);
         Addresses = new Repository<Address>(dbContext);
         Districts = new Repository<District>(dbContext);
         Countries = new Repository<Country>(dbContext);
@@ -40,7 +40,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IRepository<Driver> Drivers { get; }
 
-    public IRepository<Attach> Attachments { get; }
+    public IRepository<Attach> Attachs { get; }
 
     public IRepository<Statistic> Statistics { get; }
 

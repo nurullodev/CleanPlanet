@@ -1,10 +1,11 @@
+using Serilog;
+using Microsoft.OpenApi.Models;
+using CleanPlanet.DAL.DbContexts;
 using CleanPlanet.API.Extentions;
 using CleanPlanet.API.Middlewares;
-using CleanPlanet.DAL.DbContexts;
 using CleanPlanet.Service.Helpers;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace CleanPlanet.API;
 
@@ -22,6 +23,11 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanPlanet", Version = "v1" });
+        });
+
         // Add Custom services
         builder.Services.AddServices();
 
@@ -38,11 +44,11 @@ public class Program
             options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
         });
 
-        // Logger
-        var logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(builder.Configuration)
-                .Enrich.FromLogContext()
-                .CreateLogger();
+        //Logger
+       var logger = new LoggerConfiguration()
+               .ReadFrom.Configuration(builder.Configuration)
+               .Enrich.FromLogContext()
+               .CreateLogger();
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog(logger);
 
@@ -51,13 +57,6 @@ public class Program
         PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:CountriesFilePath"));
         PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:DictrictsFilePath"));
 
-
-        //builder.Services.AddAuthorization(options =>
-        //{
-        //    options.AddPolicy("RequireAdministratorRole",
-        //         policy => policy.RequireRole("Administrator"));
-        //});
-
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -65,6 +64,7 @@ public class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            //c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanPlanet v1")
         }
 
         app.UseAuthentication();

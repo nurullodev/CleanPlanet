@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CleanPlanet.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230922122746_FluentAPIMigration")]
-    partial class FluentAPIMigration
+    [Migration("20230923201433_Initial2Migration")]
+    partial class Initial2Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -176,6 +176,7 @@ namespace CleanPlanet.DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -188,7 +189,7 @@ namespace CleanPlanet.DAL.Migrations
                     b.ToTable("Streets");
                 });
 
-            modelBuilder.Entity("CleanPlanet.Domain.Entities.Attachments.Attach", b =>
+            modelBuilder.Entity("CleanPlanet.Domain.Entities.Attachs.Attach", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -234,12 +235,14 @@ namespace CleanPlanet.DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("QunatityTrashCan")
                         .HasColumnType("integer");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -290,6 +293,46 @@ namespace CleanPlanet.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Drivers");
+                });
+
+            modelBuilder.Entity("CleanPlanet.Domain.Entities.Messages.Message", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("AttachId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("DriverId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttachId");
+
+                    b.HasIndex("DriverId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("CleanPlanet.Domain.Entities.Statistics.Statistic", b =>
@@ -461,7 +504,7 @@ namespace CleanPlanet.DAL.Migrations
 
             modelBuilder.Entity("CleanPlanet.Domain.Entities.Cars.Car", b =>
                 {
-                    b.HasOne("CleanPlanet.Domain.Entities.Attachments.Attach", "Attach")
+                    b.HasOne("CleanPlanet.Domain.Entities.Attachs.Attach", "Attach")
                         .WithMany()
                         .HasForeignKey("AttachId");
 
@@ -470,7 +513,7 @@ namespace CleanPlanet.DAL.Migrations
 
             modelBuilder.Entity("CleanPlanet.Domain.Entities.Drivers.Driver", b =>
                 {
-                    b.HasOne("CleanPlanet.Domain.Entities.Attachments.Attach", "Attach")
+                    b.HasOne("CleanPlanet.Domain.Entities.Attachs.Attach", "Attach")
                         .WithMany()
                         .HasForeignKey("AttachId");
 
@@ -489,6 +532,31 @@ namespace CleanPlanet.DAL.Migrations
                     b.Navigation("Attach");
 
                     b.Navigation("Car");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CleanPlanet.Domain.Entities.Messages.Message", b =>
+                {
+                    b.HasOne("CleanPlanet.Domain.Entities.Attachs.Attach", "Attach")
+                        .WithMany()
+                        .HasForeignKey("AttachId");
+
+                    b.HasOne("CleanPlanet.Domain.Entities.Drivers.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CleanPlanet.Domain.Entities.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attach");
+
+                    b.Navigation("Driver");
 
                     b.Navigation("User");
                 });

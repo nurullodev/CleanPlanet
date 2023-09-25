@@ -22,7 +22,4 @@ public class UserUpdateDto
 
     [DisplayName("Email")]
     public string Email { get; set; }
-
-    [DisplayName("Role")]
-    public UserRole Role { get; set; }
 }

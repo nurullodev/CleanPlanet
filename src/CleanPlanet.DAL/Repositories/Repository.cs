@@ -46,7 +46,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditabl
             foreach (var include in includes)
                 query = query.Include(include);
 
-        var entity = await query.Where(e => !e.IsDelete).FirstOrDefaultAsync(expression);
+        var entity = await query.FirstOrDefaultAsync(expression);
         return entity;
     }
 
@@ -60,6 +60,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditabl
             foreach (var include in includes)
                 query = query.Include(include);
 
-        return query.Where(e => !e.IsDelete);
+        return query;
     }
 }
