@@ -1,11 +1,11 @@
 using AutoMapper;
 using CleanPlanet.DAL.IRepositories;
+using Microsoft.EntityFrameworkCore;
+using CleanPlanet.Service.Exceptions;
+using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Domain.Configurations;
 using CleanPlanet.Domain.Entities.Addresses;
 using CleanPlanet.Service.DTOs.Places.Addresses;
-using CleanPlanet.Service.Exceptions;
-using CleanPlanet.Service.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanPlanet.Service.Services;
 
