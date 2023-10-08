@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using CleanPlanet.Service.Interfaces;
 using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Service.DTOs.Places.Addresses;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using CleanPlanet.Service.DTOs.Places.Addresses;
 
 namespace CleanPlanet.API.Controllers;
 

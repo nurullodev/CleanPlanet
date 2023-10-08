@@ -1,10 +1,10 @@
 ﻿using CleanPlanet.API.Models;
-using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Service.DTOs.Attachs;
+using Microsoft.AspNetCore.Mvc;
 using CleanPlanet.Service.DTOs.Cars;
 using CleanPlanet.Service.Interfaces;
+using CleanPlanet.Service.DTOs.Attachs;
+using CleanPlanet.Domain.Configurations;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CleanPlanet.API.Controllers;
 public class CarsController : BaseController

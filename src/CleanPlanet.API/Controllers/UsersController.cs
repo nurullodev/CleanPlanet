@@ -66,7 +66,7 @@ public class UsersController : BaseController
             Data = await this.userService.RetrieveAsync(pagination)
         });
 
-    [HttpPost]
+    [HttpPost("change-role")]
     [Authorize(Roles = "SuberAdmin, Admin")]
     public async ValueTask<IActionResult> UpgradeRoleAsync(long id, UserRole role)
         => Ok(new Response

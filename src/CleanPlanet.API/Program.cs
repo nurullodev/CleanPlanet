@@ -45,12 +45,12 @@ public class Program
         });
 
         //Logger
-       var logger = new LoggerConfiguration()
-               .ReadFrom.Configuration(builder.Configuration)
-               .Enrich.FromLogContext()
-               .CreateLogger();
-        builder.Logging.ClearProviders();
-        builder.Logging.AddSerilog(logger);
+       //var logger = new LoggerConfiguration()
+       //        .ReadFrom.Configuration(builder.Configuration)
+       //        .Enrich.FromLogContext()
+       //        .CreateLogger();
+       // builder.Logging.ClearProviders();
+       // builder.Logging.AddSerilog(logger);
 
         PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
         PathHelper.CountryPath = Path.GetFullPath(builder.Configuration.GetValue<string>("FilePath:RegionsFilePath"));

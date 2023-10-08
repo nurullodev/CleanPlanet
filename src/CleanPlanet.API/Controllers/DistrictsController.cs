@@ -1,9 +1,8 @@
 ﻿using CleanPlanet.API.Models;
-using CleanPlanet.Domain.Configurations;
-using CleanPlanet.Service.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
+using CleanPlanet.Service.Interfaces;
+using CleanPlanet.Domain.Configurations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CleanPlanet.API.Controllers;
 

@@ -1,8 +1,8 @@
 ﻿using CleanPlanet.API.Models;
-using CleanPlanet.Service.DTOs.Places.Streets;
+using Microsoft.AspNetCore.Mvc;
 using CleanPlanet.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using CleanPlanet.Service.DTOs.Places.Streets;
 
 namespace CleanPlanet.API.Controllers;
 
